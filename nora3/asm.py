@@ -256,11 +256,10 @@ class LeftShift(Binary, code="sall"):
         if isinstance(self.src, Imm) or (isinstance(self.src, Register) and self.src.nbytes == 1):
             instructions.append(self)
         else:
-            cx = Cx(4)
             instructions.extend(
                 [
-                    Mov(self.src, cx),
-                    LeftShift(cx, self.dst),
+                    Mov(self.src, Cx(4)),
+                    LeftShift(Cx(1), self.dst),
                 ]
             )
 
@@ -270,11 +269,10 @@ class RightShift(Binary, code="sarl"):
         if isinstance(self.src, Imm) or (isinstance(self.src, Register) and self.src.nbytes == 1):
             instructions.append(self)
         else:
-            cx = Cx(4)
             instructions.extend(
                 [
-                    Mov(self.src, cx),
-                    RightShift(cx, self.dst),
+                    Mov(self.src, Cx(4)),
+                    RightShift(Cx(1), self.dst),
                 ]
             )
 
@@ -534,7 +532,7 @@ class StaticVar(TopLevel):
 
     def replace_pseudo(self, stack_size: int, variable_map: dict[str, int], symbol_table: SymbolTable) -> None:
         return
-    
+
     def __repr__(self) -> str:
         return f"StaticVar({self.name} = {self.init} {self.globl})"
 
