@@ -28,7 +28,7 @@ client: str | None
 assembly_provided = False
 if args.filename.endswith("_client.c"):
     exit(0)
-elif args.filename.endswith("tests/chapter_9/valid/stack_arguments/stack_alignment.c"):
+elif args.filename.endswith("tests/chapter_09/valid/stack_arguments/stack_alignment.c"):
     assert platform.system() == "Linux", "only runs on Linux"
     client = os.path.join(os.path.dirname(args.filename), "stack_alignment_check_linux.s")
     assembly_provided = True
