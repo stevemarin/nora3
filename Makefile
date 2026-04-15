@@ -1,5 +1,5 @@
 
-ALL := valid invalid
+ALL := invalid valid
 
 .PHONY: all
 all: $(ALL) ;

@@ -1,23 +1,23 @@
 {
-    "chapter_1/valid/multi_digit.c": {
+    "chapter_01/valid/multi_digit.c": {
         "return_code": 100
     },
-    "chapter_1/valid/newlines.c": {
+    "chapter_01/valid/newlines.c": {
         "return_code": 0
     },
-    "chapter_1/valid/no_newlines.c": {
+    "chapter_01/valid/no_newlines.c": {
         "return_code": 0
     },
-    "chapter_1/valid/return_0.c": {
+    "chapter_01/valid/return_0.c": {
         "return_code": 0
     },
-    "chapter_1/valid/return_2.c": {
+    "chapter_01/valid/return_2.c": {
         "return_code": 2
     },
-    "chapter_1/valid/spaces.c": {
+    "chapter_01/valid/spaces.c": {
         "return_code": 0
     },
-    "chapter_1/valid/tabs.c": {
+    "chapter_01/valid/tabs.c": {
         "return_code": 0
     },
     "chapter_10/valid/distinct_local_and_extern.c": {
@@ -1629,40 +1629,40 @@
     "chapter_19/whole_pipeline/int_only/remainder_test.c": {
         "return_code": 0
     },
-    "chapter_2/valid/bitwise_int_min.c": {
+    "chapter_02/valid/bitwise_int_min.c": {
         "return_code": 254
     },
-    "chapter_2/valid/bitwise_zero.c": {
+    "chapter_02/valid/bitwise_zero.c": {
         "return_code": 255
     },
-    "chapter_2/valid/bitwise.c": {
+    "chapter_02/valid/bitwise.c": {
         "return_code": 243
     },
-    "chapter_2/valid/neg_zero.c": {
+    "chapter_02/valid/neg_zero.c": {
         "return_code": 0
     },
-    "chapter_2/valid/neg.c": {
+    "chapter_02/valid/neg.c": {
         "return_code": 251
     },
-    "chapter_2/valid/negate_int_max.c": {
+    "chapter_02/valid/negate_int_max.c": {
         "return_code": 1
     },
-    "chapter_2/valid/nested_ops_2.c": {
+    "chapter_02/valid/nested_ops_2.c": {
         "return_code": 1
     },
-    "chapter_2/valid/nested_ops.c": {
+    "chapter_02/valid/nested_ops.c": {
         "return_code": 2
     },
-    "chapter_2/valid/parens_2.c": {
+    "chapter_02/valid/parens_2.c": {
         "return_code": 253
     },
-    "chapter_2/valid/parens_3.c": {
+    "chapter_02/valid/parens_3.c": {
         "return_code": 4
     },
-    "chapter_2/valid/parens.c": {
+    "chapter_02/valid/parens.c": {
         "return_code": 254
     },
-    "chapter_2/valid/redundant_parens.c": {
+    "chapter_02/valid/redundant_parens.c": {
         "return_code": 246
     },
     "chapter_20/all_types/no_coalescing/aliasing_optimized_away.c": {
@@ -1863,760 +1863,760 @@
     "chapter_20/int_only/with_coalescing/no_george_test_for_pseudos.c": {
         "return_code": 0
     },
-    "chapter_3/valid/add.c": {
+    "chapter_03/valid/add.c": {
         "return_code": 3
     },
-    "chapter_3/valid/associativity_2.c": {
+    "chapter_03/valid/associativity_2.c": {
         "return_code": 1
     },
-    "chapter_3/valid/associativity_3.c": {
+    "chapter_03/valid/associativity_3.c": {
         "return_code": 8
     },
-    "chapter_3/valid/associativity_and_precedence.c": {
+    "chapter_03/valid/associativity_and_precedence.c": {
         "return_code": 10
     },
-    "chapter_3/valid/associativity.c": {
+    "chapter_03/valid/associativity.c": {
         "return_code": 252
     },
-    "chapter_3/valid/div_neg.c": {
+    "chapter_03/valid/div_neg.c": {
         "return_code": 254
     },
-    "chapter_3/valid/div.c": {
+    "chapter_03/valid/div.c": {
         "return_code": 2
     },
-    "chapter_3/valid/extra_credit/bitwise_and.c": {
+    "chapter_03/valid/extra_credit/bitwise_and.c": {
         "return_code": 1
     },
-    "chapter_3/valid/extra_credit/bitwise_or.c": {
+    "chapter_03/valid/extra_credit/bitwise_or.c": {
         "return_code": 3
     },
-    "chapter_3/valid/extra_credit/bitwise_precedence.c": {
+    "chapter_03/valid/extra_credit/bitwise_precedence.c": {
         "return_code": 21
     },
-    "chapter_3/valid/extra_credit/bitwise_shift_associativity_2.c": {
+    "chapter_03/valid/extra_credit/bitwise_shift_associativity_2.c": {
         "return_code": 16
     },
-    "chapter_3/valid/extra_credit/bitwise_shift_associativity.c": {
+    "chapter_03/valid/extra_credit/bitwise_shift_associativity.c": {
         "return_code": 132
     },
-    "chapter_3/valid/extra_credit/bitwise_shift_precedence.c": {
+    "chapter_03/valid/extra_credit/bitwise_shift_precedence.c": {
         "return_code": 0
     },
-    "chapter_3/valid/extra_credit/bitwise_shiftl.c": {
+    "chapter_03/valid/extra_credit/bitwise_shiftl.c": {
         "return_code": 140
     },
-    "chapter_3/valid/extra_credit/bitwise_shiftr_negative.c": {
+    "chapter_03/valid/extra_credit/bitwise_shiftr_negative.c": {
         "return_code": 255
     },
-    "chapter_3/valid/extra_credit/bitwise_shiftr.c": {
+    "chapter_03/valid/extra_credit/bitwise_shiftr.c": {
         "return_code": 62
     },
-    "chapter_3/valid/extra_credit/bitwise_variable_shift_count.c": {
+    "chapter_03/valid/extra_credit/bitwise_variable_shift_count.c": {
         "return_code": 76
     },
-    "chapter_3/valid/extra_credit/bitwise_xor.c": {
+    "chapter_03/valid/extra_credit/bitwise_xor.c": {
         "return_code": 6
     },
-    "chapter_3/valid/mod.c": {
+    "chapter_03/valid/mod.c": {
         "return_code": 0
     },
-    "chapter_3/valid/mult.c": {
+    "chapter_03/valid/mult.c": {
         "return_code": 6
     },
-    "chapter_3/valid/parens.c": {
+    "chapter_03/valid/parens.c": {
         "return_code": 14
     },
-    "chapter_3/valid/precedence.c": {
+    "chapter_03/valid/precedence.c": {
         "return_code": 14
     },
-    "chapter_3/valid/sub_neg.c": {
+    "chapter_03/valid/sub_neg.c": {
         "return_code": 3
     },
-    "chapter_3/valid/sub.c": {
+    "chapter_03/valid/sub.c": {
         "return_code": 255
     },
-    "chapter_3/valid/unop_add.c": {
+    "chapter_03/valid/unop_add.c": {
         "return_code": 0
     },
-    "chapter_3/valid/unop_parens.c": {
+    "chapter_03/valid/unop_parens.c": {
         "return_code": 253
     },
-    "chapter_4/valid/and_false.c": {
+    "chapter_04/valid/and_false.c": {
         "return_code": 0
     },
-    "chapter_4/valid/and_short_circuit.c": {
+    "chapter_04/valid/and_short_circuit.c": {
         "return_code": 0
     },
-    "chapter_4/valid/and_true.c": {
+    "chapter_04/valid/and_true.c": {
         "return_code": 1
     },
-    "chapter_4/valid/associativity.c": {
+    "chapter_04/valid/associativity.c": {
         "return_code": 1
     },
-    "chapter_4/valid/compare_arithmetic_results.c": {
+    "chapter_04/valid/compare_arithmetic_results.c": {
         "return_code": 1
     },
-    "chapter_4/valid/eq_false.c": {
+    "chapter_04/valid/eq_false.c": {
         "return_code": 0
     },
-    "chapter_4/valid/eq_precedence.c": {
+    "chapter_04/valid/eq_precedence.c": {
         "return_code": 1
     },
-    "chapter_4/valid/eq_true.c": {
+    "chapter_04/valid/eq_true.c": {
         "return_code": 1
     },
-    "chapter_4/valid/extra_credit/bitwise_and_precedence.c": {
+    "chapter_04/valid/extra_credit/bitwise_and_precedence.c": {
         "return_code": 0
     },
-    "chapter_4/valid/extra_credit/bitwise_or_precedence.c": {
+    "chapter_04/valid/extra_credit/bitwise_or_precedence.c": {
         "return_code": 5
     },
-    "chapter_4/valid/extra_credit/bitwise_shift_precedence.c": {
+    "chapter_04/valid/extra_credit/bitwise_shift_precedence.c": {
         "return_code": 1
     },
-    "chapter_4/valid/extra_credit/bitwise_xor_precedence.c": {
+    "chapter_04/valid/extra_credit/bitwise_xor_precedence.c": {
         "return_code": 5
     },
-    "chapter_4/valid/ge_false.c": {
+    "chapter_04/valid/ge_false.c": {
         "return_code": 0
     },
-    "chapter_4/valid/ge_true.c": {
+    "chapter_04/valid/ge_true.c": {
         "return_code": 2
     },
-    "chapter_4/valid/gt_false.c": {
+    "chapter_04/valid/gt_false.c": {
         "return_code": 0
     },
-    "chapter_4/valid/gt_true.c": {
+    "chapter_04/valid/gt_true.c": {
         "return_code": 1
     },
-    "chapter_4/valid/le_false.c": {
+    "chapter_04/valid/le_false.c": {
         "return_code": 0
     },
-    "chapter_4/valid/le_true.c": {
+    "chapter_04/valid/le_true.c": {
         "return_code": 2
     },
-    "chapter_4/valid/lt_false.c": {
+    "chapter_04/valid/lt_false.c": {
         "return_code": 0
     },
-    "chapter_4/valid/lt_true.c": {
+    "chapter_04/valid/lt_true.c": {
         "return_code": 1
     },
-    "chapter_4/valid/multi_short_circuit.c": {
+    "chapter_04/valid/multi_short_circuit.c": {
         "return_code": 0
     },
-    "chapter_4/valid/ne_false.c": {
+    "chapter_04/valid/ne_false.c": {
         "return_code": 0
     },
-    "chapter_4/valid/ne_true.c": {
+    "chapter_04/valid/ne_true.c": {
         "return_code": 1
     },
-    "chapter_4/valid/nested_ops.c": {
+    "chapter_04/valid/nested_ops.c": {
         "return_code": 0
     },
-    "chapter_4/valid/not_sum_2.c": {
+    "chapter_04/valid/not_sum_2.c": {
         "return_code": 0
     },
-    "chapter_4/valid/not_sum.c": {
+    "chapter_04/valid/not_sum.c": {
         "return_code": 1
     },
-    "chapter_4/valid/not_zero.c": {
+    "chapter_04/valid/not_zero.c": {
         "return_code": 1
     },
-    "chapter_4/valid/not.c": {
+    "chapter_04/valid/not.c": {
         "return_code": 0
     },
-    "chapter_4/valid/operate_on_booleans.c": {
+    "chapter_04/valid/operate_on_booleans.c": {
         "return_code": 0
     },
-    "chapter_4/valid/or_false.c": {
+    "chapter_04/valid/or_false.c": {
         "return_code": 0
     },
-    "chapter_4/valid/or_short_circuit.c": {
+    "chapter_04/valid/or_short_circuit.c": {
         "return_code": 1
     },
-    "chapter_4/valid/or_true.c": {
+    "chapter_04/valid/or_true.c": {
         "return_code": 3
     },
-    "chapter_4/valid/precedence_2.c": {
+    "chapter_04/valid/precedence_2.c": {
         "return_code": 0
     },
-    "chapter_4/valid/precedence_3.c": {
+    "chapter_04/valid/precedence_3.c": {
         "return_code": 0
     },
-    "chapter_4/valid/precedence_4.c": {
+    "chapter_04/valid/precedence_4.c": {
         "return_code": 1
     },
-    "chapter_4/valid/precedence_5.c": {
+    "chapter_04/valid/precedence_5.c": {
         "return_code": 1
     },
-    "chapter_4/valid/precedence.c": {
+    "chapter_04/valid/precedence.c": {
         "return_code": 1
     },
-    "chapter_5/valid/add_variables.c": {
+    "chapter_05/valid/add_variables.c": {
         "return_code": 3
     },
-    "chapter_5/valid/allocate_temps_and_vars.c": {
+    "chapter_05/valid/allocate_temps_and_vars.c": {
         "return_code": 1
     },
-    "chapter_5/valid/assign_val_in_initializer.c": {
+    "chapter_05/valid/assign_val_in_initializer.c": {
         "return_code": 5
     },
-    "chapter_5/valid/assign.c": {
+    "chapter_05/valid/assign.c": {
         "return_code": 2
     },
-    "chapter_5/valid/assignment_in_initializer.c": {
+    "chapter_05/valid/assignment_in_initializer.c": {
         "return_code": 0
     },
-    "chapter_5/valid/assignment_lowest_precedence.c": {
+    "chapter_05/valid/assignment_lowest_precedence.c": {
         "return_code": 1
     },
-    "chapter_5/valid/empty_function_body.c": {
+    "chapter_05/valid/empty_function_body.c": {
         "return_code": 0
     },
-    "chapter_5/valid/exp_then_declaration.c": {
+    "chapter_05/valid/exp_then_declaration.c": {
         "return_code": 1
     },
-    "chapter_5/valid/extra_credit/bitwise_in_initializer.c": {
+    "chapter_05/valid/extra_credit/bitwise_in_initializer.c": {
         "return_code": 11
     },
-    "chapter_5/valid/extra_credit/bitwise_ops_vars.c": {
+    "chapter_05/valid/extra_credit/bitwise_ops_vars.c": {
         "return_code": 9
     },
-    "chapter_5/valid/extra_credit/bitwise_shiftl_variable.c": {
+    "chapter_05/valid/extra_credit/bitwise_shiftl_variable.c": {
         "return_code": 24
     },
-    "chapter_5/valid/extra_credit/bitwise_shiftr_assign.c": {
+    "chapter_05/valid/extra_credit/bitwise_shiftr_assign.c": {
         "return_code": 77
     },
-    "chapter_5/valid/extra_credit/compound_assignment_chained.c": {
+    "chapter_05/valid/extra_credit/compound_assignment_chained.c": {
         "return_code": 1
     },
-    "chapter_5/valid/extra_credit/compound_assignment_lowest_precedence.c": {
+    "chapter_05/valid/extra_credit/compound_assignment_lowest_precedence.c": {
         "return_code": 1
     },
-    "chapter_5/valid/extra_credit/compound_assignment_use_result.c": {
+    "chapter_05/valid/extra_credit/compound_assignment_use_result.c": {
         "return_code": 1
     },
-    "chapter_5/valid/extra_credit/compound_bitwise_and.c": {
+    "chapter_05/valid/extra_credit/compound_bitwise_and.c": {
         "return_code": 2
     },
-    "chapter_5/valid/extra_credit/compound_bitwise_assignment_lowest_precedence.c": {
+    "chapter_05/valid/extra_credit/compound_bitwise_assignment_lowest_precedence.c": {
         "return_code": 1
     },
-    "chapter_5/valid/extra_credit/compound_bitwise_chained.c": {
+    "chapter_05/valid/extra_credit/compound_bitwise_chained.c": {
         "return_code": 1
     },
-    "chapter_5/valid/extra_credit/compound_bitwise_or.c": {
+    "chapter_05/valid/extra_credit/compound_bitwise_or.c": {
         "return_code": 31
     },
-    "chapter_5/valid/extra_credit/compound_bitwise_shiftl.c": {
+    "chapter_05/valid/extra_credit/compound_bitwise_shiftl.c": {
         "return_code": 48
     },
-    "chapter_5/valid/extra_credit/compound_bitwise_shiftr.c": {
+    "chapter_05/valid/extra_credit/compound_bitwise_shiftr.c": {
         "return_code": 102
     },
-    "chapter_5/valid/extra_credit/compound_bitwise_xor.c": {
+    "chapter_05/valid/extra_credit/compound_bitwise_xor.c": {
         "return_code": 2
     },
-    "chapter_5/valid/extra_credit/compound_divide.c": {
+    "chapter_05/valid/extra_credit/compound_divide.c": {
         "return_code": 2
     },
-    "chapter_5/valid/extra_credit/compound_minus.c": {
+    "chapter_05/valid/extra_credit/compound_minus.c": {
         "return_code": 2
     },
-    "chapter_5/valid/extra_credit/compound_mod.c": {
+    "chapter_05/valid/extra_credit/compound_mod.c": {
         "return_code": 2
     },
-    "chapter_5/valid/extra_credit/compound_multiply.c": {
+    "chapter_05/valid/extra_credit/compound_multiply.c": {
         "return_code": 12
     },
-    "chapter_5/valid/extra_credit/compound_plus.c": {
+    "chapter_05/valid/extra_credit/compound_plus.c": {
         "return_code": 4
     },
-    "chapter_5/valid/extra_credit/incr_expression_statement.c": {
+    "chapter_05/valid/extra_credit/incr_expression_statement.c": {
         "return_code": 1
     },
-    "chapter_5/valid/extra_credit/incr_in_binary_expr.c": {
+    "chapter_05/valid/extra_credit/incr_in_binary_expr.c": {
         "return_code": 1
     },
-    "chapter_5/valid/extra_credit/incr_parenthesized.c": {
+    "chapter_05/valid/extra_credit/incr_parenthesized.c": {
         "return_code": 1
     },
-    "chapter_5/valid/extra_credit/postfix_incr_and_decr.c": {
+    "chapter_05/valid/extra_credit/postfix_incr_and_decr.c": {
         "return_code": 1
     },
-    "chapter_5/valid/extra_credit/postfix_precedence.c": {
+    "chapter_05/valid/extra_credit/postfix_precedence.c": {
         "return_code": 1
     },
-    "chapter_5/valid/extra_credit/prefix_incr_and_decr.c": {
+    "chapter_05/valid/extra_credit/prefix_incr_and_decr.c": {
         "return_code": 1
     },
-    "chapter_5/valid/kw_var_names.c": {
+    "chapter_05/valid/kw_var_names.c": {
         "return_code": 5
     },
-    "chapter_5/valid/local_var_missing_return.c": {
+    "chapter_05/valid/local_var_missing_return.c": {
         "return_code": 0
     },
-    "chapter_5/valid/mixed_precedence_assignment.c": {
+    "chapter_05/valid/mixed_precedence_assignment.c": {
         "return_code": 4
     },
-    "chapter_5/valid/non_short_circuit_or.c": {
+    "chapter_05/valid/non_short_circuit_or.c": {
         "return_code": 1
     },
-    "chapter_5/valid/null_statement.c": {
+    "chapter_05/valid/null_statement.c": {
         "return_code": 0
     },
-    "chapter_5/valid/null_then_return.c": {
+    "chapter_05/valid/null_then_return.c": {
         "return_code": 0
     },
-    "chapter_5/valid/return_var.c": {
+    "chapter_05/valid/return_var.c": {
         "return_code": 2
     },
-    "chapter_5/valid/short_circuit_and_fail.c": {
+    "chapter_05/valid/short_circuit_and_fail.c": {
         "return_code": 0
     },
-    "chapter_5/valid/short_circuit_or.c": {
+    "chapter_05/valid/short_circuit_or.c": {
         "return_code": 0
     },
-    "chapter_5/valid/unused_exp.c": {
+    "chapter_05/valid/unused_exp.c": {
         "return_code": 0
     },
-    "chapter_5/valid/use_assignment_result.c": {
+    "chapter_05/valid/use_assignment_result.c": {
         "return_code": 4
     },
-    "chapter_5/valid/use_val_in_own_initializer.c": {
+    "chapter_05/valid/use_val_in_own_initializer.c": {
         "return_code": 0
     },
-    "chapter_6/valid/assign_ternary.c": {
+    "chapter_06/valid/assign_ternary.c": {
         "return_code": 2
     },
-    "chapter_6/valid/binary_condition.c": {
+    "chapter_06/valid/binary_condition.c": {
         "return_code": 5
     },
-    "chapter_6/valid/binary_false_condition.c": {
+    "chapter_06/valid/binary_false_condition.c": {
         "return_code": 0
     },
-    "chapter_6/valid/else.c": {
+    "chapter_06/valid/else.c": {
         "return_code": 2
     },
-    "chapter_6/valid/extra_credit/bitwise_ternary.c": {
+    "chapter_06/valid/extra_credit/bitwise_ternary.c": {
         "return_code": 5
     },
-    "chapter_6/valid/extra_credit/compound_assign_ternary.c": {
+    "chapter_06/valid/extra_credit/compound_assign_ternary.c": {
         "return_code": 8
     },
-    "chapter_6/valid/extra_credit/compound_if_expression.c": {
+    "chapter_06/valid/extra_credit/compound_if_expression.c": {
         "return_code": 1
     },
-    "chapter_6/valid/extra_credit/goto_after_declaration.c": {
+    "chapter_06/valid/extra_credit/goto_after_declaration.c": {
         "return_code": 1
     },
-    "chapter_6/valid/extra_credit/goto_backwards.c": {
+    "chapter_06/valid/extra_credit/goto_backwards.c": {
         "return_code": 5
     },
-    "chapter_6/valid/extra_credit/goto_label_and_var.c": {
+    "chapter_06/valid/extra_credit/goto_label_and_var.c": {
         "return_code": 5
     },
-    "chapter_6/valid/extra_credit/goto_label_main_2.c": {
+    "chapter_06/valid/extra_credit/goto_label_main_2.c": {
         "return_code": 1
     },
-    "chapter_6/valid/extra_credit/goto_label_main.c": {
+    "chapter_06/valid/extra_credit/goto_label_main.c": {
         "return_code": 0
     },
-    "chapter_6/valid/extra_credit/goto_label.c": {
+    "chapter_06/valid/extra_credit/goto_label.c": {
         "return_code": 1
     },
-    "chapter_6/valid/extra_credit/goto_nested_label.c": {
+    "chapter_06/valid/extra_credit/goto_nested_label.c": {
         "return_code": 5
     },
-    "chapter_6/valid/extra_credit/label_all_statements.c": {
+    "chapter_06/valid/extra_credit/label_all_statements.c": {
         "return_code": 100
     },
-    "chapter_6/valid/extra_credit/label_token.c": {
+    "chapter_06/valid/extra_credit/label_token.c": {
         "return_code": 1
     },
-    "chapter_6/valid/extra_credit/lh_compound_assignment.c": {
+    "chapter_06/valid/extra_credit/lh_compound_assignment.c": {
         "return_code": 1
     },
-    "chapter_6/valid/extra_credit/postfix_if.c": {
+    "chapter_06/valid/extra_credit/postfix_if.c": {
         "return_code": 1
     },
-    "chapter_6/valid/extra_credit/postfix_in_ternary.c": {
+    "chapter_06/valid/extra_credit/postfix_in_ternary.c": {
         "return_code": 9
     },
-    "chapter_6/valid/extra_credit/prefix_if.c": {
+    "chapter_06/valid/extra_credit/prefix_if.c": {
         "return_code": 1
     },
-    "chapter_6/valid/extra_credit/prefix_in_ternary.c": {
+    "chapter_06/valid/extra_credit/prefix_in_ternary.c": {
         "return_code": 2
     },
-    "chapter_6/valid/extra_credit/unused_label.c": {
+    "chapter_06/valid/extra_credit/unused_label.c": {
         "return_code": 0
     },
-    "chapter_6/valid/extra_credit/whitespace_after_label.c": {
+    "chapter_06/valid/extra_credit/whitespace_after_label.c": {
         "return_code": 1
     },
-    "chapter_6/valid/if_nested_2.c": {
+    "chapter_06/valid/if_nested_2.c": {
         "return_code": 2
     },
-    "chapter_6/valid/if_nested_3.c": {
+    "chapter_06/valid/if_nested_3.c": {
         "return_code": 3
     },
-    "chapter_6/valid/if_nested_4.c": {
+    "chapter_06/valid/if_nested_4.c": {
         "return_code": 4
     },
-    "chapter_6/valid/if_nested_5.c": {
+    "chapter_06/valid/if_nested_5.c": {
         "return_code": 1
     },
-    "chapter_6/valid/if_nested.c": {
+    "chapter_06/valid/if_nested.c": {
         "return_code": 1
     },
-    "chapter_6/valid/if_not_taken.c": {
+    "chapter_06/valid/if_not_taken.c": {
         "return_code": 0
     },
-    "chapter_6/valid/if_null_body.c": {
+    "chapter_06/valid/if_null_body.c": {
         "return_code": 1
     },
-    "chapter_6/valid/if_taken.c": {
+    "chapter_06/valid/if_taken.c": {
         "return_code": 1
     },
-    "chapter_6/valid/lh_assignment.c": {
+    "chapter_06/valid/lh_assignment.c": {
         "return_code": 1
     },
-    "chapter_6/valid/multiple_if.c": {
+    "chapter_06/valid/multiple_if.c": {
         "return_code": 8
     },
-    "chapter_6/valid/nested_ternary_2.c": {
+    "chapter_06/valid/nested_ternary_2.c": {
         "return_code": 15
     },
-    "chapter_6/valid/nested_ternary.c": {
+    "chapter_06/valid/nested_ternary.c": {
         "return_code": 7
     },
-    "chapter_6/valid/rh_assignment.c": {
+    "chapter_06/valid/rh_assignment.c": {
         "return_code": 1
     },
-    "chapter_6/valid/ternary_middle_assignment.c": {
+    "chapter_06/valid/ternary_middle_assignment.c": {
         "return_code": 2
     },
-    "chapter_6/valid/ternary_middle_binop.c": {
+    "chapter_06/valid/ternary_middle_binop.c": {
         "return_code": 1
     },
-    "chapter_6/valid/ternary_precedence.c": {
+    "chapter_06/valid/ternary_precedence.c": {
         "return_code": 20
     },
-    "chapter_6/valid/ternary_rh_binop.c": {
+    "chapter_06/valid/ternary_rh_binop.c": {
         "return_code": 1
     },
-    "chapter_6/valid/ternary_short_circuit_2.c": {
+    "chapter_06/valid/ternary_short_circuit_2.c": {
         "return_code": 2
     },
-    "chapter_6/valid/ternary_short_circuit.c": {
+    "chapter_06/valid/ternary_short_circuit.c": {
         "return_code": 1
     },
-    "chapter_6/valid/ternary.c": {
+    "chapter_06/valid/ternary.c": {
         "return_code": 4
     },
-    "chapter_7/valid/assign_to_self_2.c": {
+    "chapter_07/valid/assign_to_self_2.c": {
         "return_code": 3
     },
-    "chapter_7/valid/assign_to_self.c": {
+    "chapter_07/valid/assign_to_self.c": {
         "return_code": 4
     },
-    "chapter_7/valid/declaration_only.c": {
+    "chapter_07/valid/declaration_only.c": {
         "return_code": 1
     },
-    "chapter_7/valid/empty_blocks.c": {
+    "chapter_07/valid/empty_blocks.c": {
         "return_code": 30
     },
-    "chapter_7/valid/extra_credit/compound_subtract_in_block.c": {
+    "chapter_07/valid/extra_credit/compound_subtract_in_block.c": {
         "return_code": 1
     },
-    "chapter_7/valid/extra_credit/goto_before_declaration.c": {
+    "chapter_07/valid/extra_credit/goto_before_declaration.c": {
         "return_code": 0
     },
-    "chapter_7/valid/extra_credit/goto_inner_scope.c": {
+    "chapter_07/valid/extra_credit/goto_inner_scope.c": {
         "return_code": 1
     },
-    "chapter_7/valid/extra_credit/goto_outer_scope.c": {
+    "chapter_07/valid/extra_credit/goto_outer_scope.c": {
         "return_code": 1
     },
-    "chapter_7/valid/extra_credit/goto_sibling_scope.c": {
+    "chapter_07/valid/extra_credit/goto_sibling_scope.c": {
         "return_code": 11
     },
-    "chapter_7/valid/hidden_then_visible.c": {
+    "chapter_07/valid/hidden_then_visible.c": {
         "return_code": 1
     },
-    "chapter_7/valid/hidden_variable.c": {
+    "chapter_07/valid/hidden_variable.c": {
         "return_code": 1
     },
-    "chapter_7/valid/inner_uninitialized.c": {
+    "chapter_07/valid/inner_uninitialized.c": {
         "return_code": 4
     },
-    "chapter_7/valid/multiple_vars_same_name.c": {
+    "chapter_07/valid/multiple_vars_same_name.c": {
         "return_code": 2
     },
-    "chapter_7/valid/nested_if.c": {
+    "chapter_07/valid/nested_if.c": {
         "return_code": 1
     },
-    "chapter_7/valid/similar_var_names.c": {
+    "chapter_07/valid/similar_var_names.c": {
         "return_code": 28
     },
-    "chapter_7/valid/use_in_inner_scope.c": {
+    "chapter_07/valid/use_in_inner_scope.c": {
         "return_code": 3
     },
-    "chapter_8/valid/break_immediate.c": {
+    "chapter_08/valid/break_immediate.c": {
         "return_code": 1
     },
-    "chapter_8/valid/break.c": {
+    "chapter_08/valid/break.c": {
         "return_code": 1
     },
-    "chapter_8/valid/continue_empty_post.c": {
+    "chapter_08/valid/continue_empty_post.c": {
         "return_code": 30
     },
-    "chapter_8/valid/continue.c": {
+    "chapter_08/valid/continue.c": {
         "return_code": 1
     },
-    "chapter_8/valid/do_while_break_immediate.c": {
+    "chapter_08/valid/do_while_break_immediate.c": {
         "return_code": 10
     },
-    "chapter_8/valid/do_while.c": {
+    "chapter_08/valid/do_while.c": {
         "return_code": 16
     },
-    "chapter_8/valid/empty_expression.c": {
+    "chapter_08/valid/empty_expression.c": {
         "return_code": 0
     },
-    "chapter_8/valid/empty_loop_body.c": {
+    "chapter_08/valid/empty_loop_body.c": {
         "return_code": 252
     },
-    "chapter_8/valid/extra_credit/case_block.c": {
+    "chapter_08/valid/extra_credit/case_block.c": {
         "return_code": 1
     },
-    "chapter_8/valid/extra_credit/compound_assignment_controlling_expression.c": {
+    "chapter_08/valid/extra_credit/compound_assignment_controlling_expression.c": {
         "return_code": 1
     },
-    "chapter_8/valid/extra_credit/compound_assignment_for_loop.c": {
+    "chapter_08/valid/extra_credit/compound_assignment_for_loop.c": {
         "return_code": 1
     },
-    "chapter_8/valid/extra_credit/duffs_device.c": {
+    "chapter_08/valid/extra_credit/duffs_device.c": {
         "return_code": 1
     },
-    "chapter_8/valid/extra_credit/goto_bypass_condition.c": {
+    "chapter_08/valid/extra_credit/goto_bypass_condition.c": {
         "return_code": 10
     },
-    "chapter_8/valid/extra_credit/goto_bypass_init_exp.c": {
+    "chapter_08/valid/extra_credit/goto_bypass_init_exp.c": {
         "return_code": 1
     },
-    "chapter_8/valid/extra_credit/goto_bypass_post_exp.c": {
+    "chapter_08/valid/extra_credit/goto_bypass_post_exp.c": {
         "return_code": 11
     },
-    "chapter_8/valid/extra_credit/label_loop_body.c": {
+    "chapter_08/valid/extra_credit/label_loop_body.c": {
         "return_code": 1
     },
-    "chapter_8/valid/extra_credit/label_loops_breaks_and_continues.c": {
+    "chapter_08/valid/extra_credit/label_loops_breaks_and_continues.c": {
         "return_code": 12
     },
-    "chapter_8/valid/extra_credit/loop_header_postfix_and_prefix.c": {
+    "chapter_08/valid/extra_credit/loop_header_postfix_and_prefix.c": {
         "return_code": 1
     },
-    "chapter_8/valid/extra_credit/loop_in_switch.c": {
+    "chapter_08/valid/extra_credit/loop_in_switch.c": {
         "return_code": 123
     },
-    "chapter_8/valid/extra_credit/post_exp_incr.c": {
+    "chapter_08/valid/extra_credit/post_exp_incr.c": {
         "return_code": 21
     },
-    "chapter_8/valid/extra_credit/switch_assign_in_condition.c": {
+    "chapter_08/valid/extra_credit/switch_assign_in_condition.c": {
         "return_code": 2
     },
-    "chapter_8/valid/extra_credit/switch_break.c": {
+    "chapter_08/valid/extra_credit/switch_break.c": {
         "return_code": 10
     },
-    "chapter_8/valid/extra_credit/switch_decl.c": {
+    "chapter_08/valid/extra_credit/switch_decl.c": {
         "return_code": 1
     },
-    "chapter_8/valid/extra_credit/switch_default_fallthrough.c": {
+    "chapter_08/valid/extra_credit/switch_default_fallthrough.c": {
         "return_code": 0
     },
-    "chapter_8/valid/extra_credit/switch_default_not_last.c": {
+    "chapter_08/valid/extra_credit/switch_default_not_last.c": {
         "return_code": 0
     },
-    "chapter_8/valid/extra_credit/switch_default_only.c": {
+    "chapter_08/valid/extra_credit/switch_default_only.c": {
         "return_code": 1
     },
-    "chapter_8/valid/extra_credit/switch_default.c": {
+    "chapter_08/valid/extra_credit/switch_default.c": {
         "return_code": 22
     },
-    "chapter_8/valid/extra_credit/switch_empty.c": {
+    "chapter_08/valid/extra_credit/switch_empty.c": {
         "return_code": 12
     },
-    "chapter_8/valid/extra_credit/switch_fallthrough.c": {
+    "chapter_08/valid/extra_credit/switch_fallthrough.c": {
         "return_code": 6
     },
-    "chapter_8/valid/extra_credit/switch_goto_mid_case.c": {
+    "chapter_08/valid/extra_credit/switch_goto_mid_case.c": {
         "return_code": 1
     },
-    "chapter_8/valid/extra_credit/switch_in_loop.c": {
+    "chapter_08/valid/extra_credit/switch_in_loop.c": {
         "return_code": 1
     },
-    "chapter_8/valid/extra_credit/switch_nested_cases.c": {
+    "chapter_08/valid/extra_credit/switch_nested_cases.c": {
         "return_code": 1
     },
-    "chapter_8/valid/extra_credit/switch_nested_not_taken.c": {
+    "chapter_08/valid/extra_credit/switch_nested_not_taken.c": {
         "return_code": 2
     },
-    "chapter_8/valid/extra_credit/switch_nested_switch.c": {
+    "chapter_08/valid/extra_credit/switch_nested_switch.c": {
         "return_code": 1
     },
-    "chapter_8/valid/extra_credit/switch_no_case.c": {
+    "chapter_08/valid/extra_credit/switch_no_case.c": {
         "return_code": 4
     },
-    "chapter_8/valid/extra_credit/switch_not_taken.c": {
+    "chapter_08/valid/extra_credit/switch_not_taken.c": {
         "return_code": 1
     },
-    "chapter_8/valid/extra_credit/switch_single_case.c": {
+    "chapter_08/valid/extra_credit/switch_single_case.c": {
         "return_code": 1
     },
-    "chapter_8/valid/extra_credit/switch_with_continue_2.c": {
+    "chapter_08/valid/extra_credit/switch_with_continue_2.c": {
         "return_code": 5
     },
-    "chapter_8/valid/extra_credit/switch_with_continue.c": {
+    "chapter_08/valid/extra_credit/switch_with_continue.c": {
         "return_code": 5
     },
-    "chapter_8/valid/extra_credit/switch.c": {
+    "chapter_08/valid/extra_credit/switch.c": {
         "return_code": 3
     },
-    "chapter_8/valid/for_absent_condition.c": {
+    "chapter_08/valid/for_absent_condition.c": {
         "return_code": 0
     },
-    "chapter_8/valid/for_absent_post.c": {
+    "chapter_08/valid/for_absent_post.c": {
         "return_code": 0
     },
-    "chapter_8/valid/for_decl.c": {
+    "chapter_08/valid/for_decl.c": {
         "return_code": 101
     },
-    "chapter_8/valid/for_nested_shadow.c": {
+    "chapter_08/valid/for_nested_shadow.c": {
         "return_code": 1
     },
-    "chapter_8/valid/for_shadow.c": {
+    "chapter_08/valid/for_shadow.c": {
         "return_code": 1
     },
-    "chapter_8/valid/for.c": {
+    "chapter_08/valid/for.c": {
         "return_code": 16
     },
-    "chapter_8/valid/multi_break.c": {
+    "chapter_08/valid/multi_break.c": {
         "return_code": 1
     },
-    "chapter_8/valid/multi_continue_same_loop.c": {
+    "chapter_08/valid/multi_continue_same_loop.c": {
         "return_code": 1
     },
-    "chapter_8/valid/nested_break.c": {
+    "chapter_08/valid/nested_break.c": {
         "return_code": 250
     },
-    "chapter_8/valid/nested_continue.c": {
+    "chapter_08/valid/nested_continue.c": {
         "return_code": 24
     },
-    "chapter_8/valid/nested_loop.c": {
+    "chapter_08/valid/nested_loop.c": {
         "return_code": 1
     },
-    "chapter_8/valid/null_for_header.c": {
+    "chapter_08/valid/null_for_header.c": {
         "return_code": 4
     },
-    "chapter_8/valid/while.c": {
+    "chapter_08/valid/while.c": {
         "return_code": 6
     },
-    "chapter_9/valid/arguments_in_registers/dont_clobber_edx.c": {
+    "chapter_09/valid/arguments_in_registers/dont_clobber_edx.c": {
         "return_code": 1
     },
-    "chapter_9/valid/arguments_in_registers/expression_args.c": {
+    "chapter_09/valid/arguments_in_registers/expression_args.c": {
         "return_code": 2
     },
-    "chapter_9/valid/arguments_in_registers/fibonacci.c": {
+    "chapter_09/valid/arguments_in_registers/fibonacci.c": {
         "return_code": 8
     },
-    "chapter_9/valid/arguments_in_registers/forward_decl_multi_arg.c": {
+    "chapter_09/valid/arguments_in_registers/forward_decl_multi_arg.c": {
         "return_code": 1
     },
-    "chapter_9/valid/arguments_in_registers/hello_world.c": {
+    "chapter_09/valid/arguments_in_registers/hello_world.c": {
         "return_code": 0,
         "stdout": "Hello, World!\n"
     },
-    "chapter_9/valid/arguments_in_registers/param_shadows_local_var.c": {
+    "chapter_09/valid/arguments_in_registers/param_shadows_local_var.c": {
         "return_code": 20
     },
-    "chapter_9/valid/arguments_in_registers/parameter_shadows_function.c": {
+    "chapter_09/valid/arguments_in_registers/parameter_shadows_function.c": {
         "return_code": 3
     },
-    "chapter_9/valid/arguments_in_registers/parameter_shadows_own_function.c": {
+    "chapter_09/valid/arguments_in_registers/parameter_shadows_own_function.c": {
         "return_code": 2
     },
-    "chapter_9/valid/arguments_in_registers/parameters_are_preserved.c": {
+    "chapter_09/valid/arguments_in_registers/parameters_are_preserved.c": {
         "return_code": 1
     },
-    "chapter_9/valid/arguments_in_registers/single_arg.c": {
+    "chapter_09/valid/arguments_in_registers/single_arg.c": {
         "return_code": 6
     },
-    "chapter_9/valid/extra_credit/compound_assign_function_result.c": {
+    "chapter_09/valid/extra_credit/compound_assign_function_result.c": {
         "return_code": 1
     },
-    "chapter_9/valid/extra_credit/dont_clobber_ecx.c": {
+    "chapter_09/valid/extra_credit/dont_clobber_ecx.c": {
         "return_code": 1
     },
-    "chapter_9/valid/extra_credit/goto_label_multiple_functions.c": {
+    "chapter_09/valid/extra_credit/goto_label_multiple_functions.c": {
         "return_code": 5
     },
-    "chapter_9/valid/extra_credit/goto_shared_name.c": {
+    "chapter_09/valid/extra_credit/goto_shared_name.c": {
         "return_code": 1
     },
-    "chapter_9/valid/extra_credit/label_naming_scheme.c": {
+    "chapter_09/valid/extra_credit/label_naming_scheme.c": {
         "return_code": 0
     },
-    "chapter_9/valid/libraries/addition.c": {
+    "chapter_09/valid/libraries/addition.c": {
         "return_code": 3
     },
-    "chapter_9/valid/libraries/many_args.c": {
+    "chapter_09/valid/libraries/many_args.c": {
         "return_code": 115
     },
-    "chapter_9/valid/libraries/no_function_calls/division.c": {
+    "chapter_09/valid/libraries/no_function_calls/division.c": {
         "return_code": 1
     },
-    "chapter_9/valid/libraries/no_function_calls/local_stack_variables.c": {
+    "chapter_09/valid/libraries/no_function_calls/local_stack_variables.c": {
         "return_code": 100
     },
-    "chapter_9/valid/libraries/system_call.c": {
+    "chapter_09/valid/libraries/system_call.c": {
         "return_code": 0,
         "stdout": "H"
     },
-    "chapter_9/valid/no_arguments/forward_decl.c": {
+    "chapter_09/valid/no_arguments/forward_decl.c": {
         "return_code": 3
     },
-    "chapter_9/valid/no_arguments/function_shadows_variable.c": {
+    "chapter_09/valid/no_arguments/function_shadows_variable.c": {
         "return_code": 11
     },
-    "chapter_9/valid/no_arguments/multiple_declarations.c": {
+    "chapter_09/valid/no_arguments/multiple_declarations.c": {
         "return_code": 3
     },
-    "chapter_9/valid/no_arguments/no_return_value.c": {
+    "chapter_09/valid/no_arguments/no_return_value.c": {
         "return_code": 3
     },
-    "chapter_9/valid/no_arguments/precedence.c": {
+    "chapter_09/valid/no_arguments/precedence.c": {
         "return_code": 0
     },
-    "chapter_9/valid/no_arguments/use_function_in_expression.c": {
+    "chapter_09/valid/no_arguments/use_function_in_expression.c": {
         "return_code": 21
     },
-    "chapter_9/valid/no_arguments/variable_shadows_function.c": {
+    "chapter_09/valid/no_arguments/variable_shadows_function.c": {
         "return_code": 7
     },
-    "chapter_9/valid/stack_arguments/call_putchar.c": {
+    "chapter_09/valid/stack_arguments/call_putchar.c": {
         "return_code": 8,
         "stdout": "A"
     },
-    "chapter_9/valid/stack_arguments/lots_of_arguments.c": {
+    "chapter_09/valid/stack_arguments/lots_of_arguments.c": {
         "return_code": 1
     },
-    "chapter_9/valid/stack_arguments/stack_alignment.c": {
+    "chapter_09/valid/stack_arguments/stack_alignment.c": {
         "return_code": 3
     },
-    "chapter_9/valid/stack_arguments/test_for_memory_leaks.c": {
+    "chapter_09/valid/stack_arguments/test_for_memory_leaks.c": {
         "return_code": 1
     }
 }

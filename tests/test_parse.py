@@ -6,7 +6,7 @@ from nora3.parse import ParserEofError, TokenTypeError, ParserError, Parser
 
 
 def test_end_before_expr() -> None:
-    path = os.path.join(TEST_DIR, "chapter_1", "invalid_parse", "end_before_expr.c")
+    path = os.path.join(TEST_DIR, "chapter_01", "invalid_parse", "end_before_expr.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -19,7 +19,7 @@ def test_end_before_expr() -> None:
 
 
 def test_extra_junk() -> None:
-    path = os.path.join(TEST_DIR, "chapter_1", "invalid_parse", "extra_junk.c")
+    path = os.path.join(TEST_DIR, "chapter_01", "invalid_parse", "extra_junk.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -34,7 +34,7 @@ def test_extra_junk() -> None:
 
 
 def test_invalid_function_name() -> None:
-    path = os.path.join(TEST_DIR, "chapter_1", "invalid_parse", "invalid_function_name.c")
+    path = os.path.join(TEST_DIR, "chapter_01", "invalid_parse", "invalid_function_name.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -47,7 +47,7 @@ def test_invalid_function_name() -> None:
 
 
 def test_keyword_wrong_case() -> None:
-    path = os.path.join(TEST_DIR, "chapter_1", "invalid_parse", "keyword_wrong_case.c")
+    path = os.path.join(TEST_DIR, "chapter_01", "invalid_parse", "keyword_wrong_case.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -60,7 +60,7 @@ def test_keyword_wrong_case() -> None:
 
 
 def test_missing_type() -> None:
-    path = os.path.join(TEST_DIR, "chapter_1", "invalid_parse", "missing_type.c")
+    path = os.path.join(TEST_DIR, "chapter_01", "invalid_parse", "missing_type.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -75,7 +75,7 @@ def test_missing_type() -> None:
 
 
 def test_misspelled_keyword() -> None:
-    path = os.path.join(TEST_DIR, "chapter_1", "invalid_parse", "misspelled_keyword.c")
+    path = os.path.join(TEST_DIR, "chapter_01", "invalid_parse", "misspelled_keyword.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -88,7 +88,7 @@ def test_misspelled_keyword() -> None:
 
 
 def test_no_semicolon() -> None:
-    path = os.path.join(TEST_DIR, "chapter_1", "invalid_parse", "no_semicolon.c")
+    path = os.path.join(TEST_DIR, "chapter_01", "invalid_parse", "no_semicolon.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -101,7 +101,7 @@ def test_no_semicolon() -> None:
 
 
 def test_not_expression() -> None:
-    path = os.path.join(TEST_DIR, "chapter_1", "invalid_parse", "not_expression.c")
+    path = os.path.join(TEST_DIR, "chapter_01", "invalid_parse", "not_expression.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -114,7 +114,7 @@ def test_not_expression() -> None:
 
 
 def test_space_in_keyword() -> None:
-    path = os.path.join(TEST_DIR, "chapter_1", "invalid_parse", "space_in_keyword.c")
+    path = os.path.join(TEST_DIR, "chapter_01", "invalid_parse", "space_in_keyword.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -127,7 +127,7 @@ def test_space_in_keyword() -> None:
 
 
 def test_switched_parens() -> None:
-    path = os.path.join(TEST_DIR, "chapter_1", "invalid_parse", "switched_parens.c")
+    path = os.path.join(TEST_DIR, "chapter_01", "invalid_parse", "switched_parens.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -140,7 +140,7 @@ def test_switched_parens() -> None:
 
 
 def test_unclosed_brace() -> None:
-    path = os.path.join(TEST_DIR, "chapter_1", "invalid_parse", "unclosed_brace.c")
+    path = os.path.join(TEST_DIR, "chapter_01", "invalid_parse", "unclosed_brace.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -153,7 +153,7 @@ def test_unclosed_brace() -> None:
 
 
 def test_unclosed_paren() -> None:
-    path = os.path.join(TEST_DIR, "chapter_1", "invalid_parse", "unclosed_paren.c")
+    path = os.path.join(TEST_DIR, "chapter_01", "invalid_parse", "unclosed_paren.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -166,7 +166,7 @@ def test_unclosed_paren() -> None:
 
 
 def test_extra_paren() -> None:
-    path = os.path.join(TEST_DIR, "chapter_2", "invalid_parse", "extra_paren.c")
+    path = os.path.join(TEST_DIR, "chapter_02", "invalid_parse", "extra_paren.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -179,7 +179,7 @@ def test_extra_paren() -> None:
 
 
 def test_missing_const() -> None:
-    path = os.path.join(TEST_DIR, "chapter_2", "invalid_parse", "missing_const.c")
+    path = os.path.join(TEST_DIR, "chapter_02", "invalid_parse", "missing_const.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -192,7 +192,7 @@ def test_missing_const() -> None:
 
 
 def test_missing_semicolon() -> None:
-    path = os.path.join(TEST_DIR, "chapter_2", "invalid_parse", "missing_semicolon.c")
+    path = os.path.join(TEST_DIR, "chapter_02", "invalid_parse", "missing_semicolon.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -205,7 +205,7 @@ def test_missing_semicolon() -> None:
 
 
 def test_nested_missing_const() -> None:
-    path = os.path.join(TEST_DIR, "chapter_2", "invalid_parse", "nested_missing_const.c")
+    path = os.path.join(TEST_DIR, "chapter_02", "invalid_parse", "nested_missing_const.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -218,7 +218,7 @@ def test_nested_missing_const() -> None:
 
 
 def test_parenthesize_operand() -> None:
-    path = os.path.join(TEST_DIR, "chapter_2", "invalid_parse", "parenthesize_operand.c")
+    path = os.path.join(TEST_DIR, "chapter_02", "invalid_parse", "parenthesize_operand.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -231,7 +231,7 @@ def test_parenthesize_operand() -> None:
 
 
 def test_unclosed_paren_2() -> None:
-    path = os.path.join(TEST_DIR, "chapter_2", "invalid_parse", "unclosed_paren.c")
+    path = os.path.join(TEST_DIR, "chapter_02", "invalid_parse", "unclosed_paren.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -244,7 +244,7 @@ def test_unclosed_paren_2() -> None:
 
 
 def test_wrong_order() -> None:
-    path = os.path.join(TEST_DIR, "chapter_2", "invalid_parse", "wrong_order.c")
+    path = os.path.join(TEST_DIR, "chapter_02", "invalid_parse", "wrong_order.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -257,7 +257,7 @@ def test_wrong_order() -> None:
 
 
 def test_double_operation() -> None:
-    path = os.path.join(TEST_DIR, "chapter_3", "invalid_parse", "double_operation.c")
+    path = os.path.join(TEST_DIR, "chapter_03", "invalid_parse", "double_operation.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -270,7 +270,7 @@ def test_double_operation() -> None:
 
 
 def test_imbalanced_paren() -> None:
-    path = os.path.join(TEST_DIR, "chapter_3", "invalid_parse", "imbalanced_paren.c")
+    path = os.path.join(TEST_DIR, "chapter_03", "invalid_parse", "imbalanced_paren.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -283,7 +283,7 @@ def test_imbalanced_paren() -> None:
 
 
 def test_malformed_paren() -> None:
-    path = os.path.join(TEST_DIR, "chapter_3", "invalid_parse", "malformed_paren.c")
+    path = os.path.join(TEST_DIR, "chapter_03", "invalid_parse", "malformed_paren.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -296,7 +296,7 @@ def test_malformed_paren() -> None:
 
 
 def test_misplaced_semicolon() -> None:
-    path = os.path.join(TEST_DIR, "chapter_3", "invalid_parse", "misplaced_semicolon.c")
+    path = os.path.join(TEST_DIR, "chapter_03", "invalid_parse", "misplaced_semicolon.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -309,7 +309,7 @@ def test_misplaced_semicolon() -> None:
 
 
 def test_missing_first_op() -> None:
-    path = os.path.join(TEST_DIR, "chapter_3", "invalid_parse", "missing_first_op.c")
+    path = os.path.join(TEST_DIR, "chapter_03", "invalid_parse", "missing_first_op.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -322,7 +322,7 @@ def test_missing_first_op() -> None:
 
 
 def test_missing_open_paren() -> None:
-    path = os.path.join(TEST_DIR, "chapter_3", "invalid_parse", "missing_open_paren.c")
+    path = os.path.join(TEST_DIR, "chapter_03", "invalid_parse", "missing_open_paren.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -335,7 +335,7 @@ def test_missing_open_paren() -> None:
 
 
 def test_missing_second_op() -> None:
-    path = os.path.join(TEST_DIR, "chapter_3", "invalid_parse", "missing_second_op.c")
+    path = os.path.join(TEST_DIR, "chapter_03", "invalid_parse", "missing_second_op.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -348,7 +348,7 @@ def test_missing_second_op() -> None:
 
 
 def test_no_semicolon_2() -> None:
-    path = os.path.join(TEST_DIR, "chapter_3", "invalid_parse", "no_semicolon.c")
+    path = os.path.join(TEST_DIR, "chapter_03", "invalid_parse", "no_semicolon.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -361,7 +361,7 @@ def test_no_semicolon_2() -> None:
 
 
 def test_bitwise_double_operator() -> None:
-    path = os.path.join(TEST_DIR, "chapter_3", "invalid_parse", "extra_credit", "bitwise_double_operator.c")
+    path = os.path.join(TEST_DIR, "chapter_03", "invalid_parse", "extra_credit", "bitwise_double_operator.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -374,7 +374,7 @@ def test_bitwise_double_operator() -> None:
 
 
 def test_missing_const_2() -> None:
-    path = os.path.join(TEST_DIR, "chapter_4", "invalid_parse", "missing_const.c")
+    path = os.path.join(TEST_DIR, "chapter_04", "invalid_parse", "missing_const.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -387,7 +387,7 @@ def test_missing_const_2() -> None:
 
 
 def test_missing_first_op_2() -> None:
-    path = os.path.join(TEST_DIR, "chapter_4", "invalid_parse", "missing_first_op.c")
+    path = os.path.join(TEST_DIR, "chapter_04", "invalid_parse", "missing_first_op.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -400,7 +400,7 @@ def test_missing_first_op_2() -> None:
 
 
 def test_missing_operand() -> None:
-    path = os.path.join(TEST_DIR, "chapter_4", "invalid_parse", "missing_operand.c")
+    path = os.path.join(TEST_DIR, "chapter_04", "invalid_parse", "missing_operand.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -413,7 +413,7 @@ def test_missing_operand() -> None:
 
 
 def test_missing_second_op_2() -> None:
-    path = os.path.join(TEST_DIR, "chapter_4", "invalid_parse", "missing_second_op.c")
+    path = os.path.join(TEST_DIR, "chapter_04", "invalid_parse", "missing_second_op.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -426,7 +426,7 @@ def test_missing_second_op_2() -> None:
 
 
 def test_missing_semicolon_2() -> None:
-    path = os.path.join(TEST_DIR, "chapter_4", "invalid_parse", "missing_semicolon.c")
+    path = os.path.join(TEST_DIR, "chapter_04", "invalid_parse", "missing_semicolon.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -439,7 +439,7 @@ def test_missing_semicolon_2() -> None:
 
 
 def test_unary_missing_semicolon() -> None:
-    path = os.path.join(TEST_DIR, "chapter_4", "invalid_parse", "unary_missing_semicolon.c")
+    path = os.path.join(TEST_DIR, "chapter_04", "invalid_parse", "unary_missing_semicolon.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -452,7 +452,7 @@ def test_unary_missing_semicolon() -> None:
 
 
 def test_compound_invalid_operator() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_parse", "compound_invalid_operator.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_parse", "compound_invalid_operator.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -465,7 +465,7 @@ def test_compound_invalid_operator() -> None:
 
 
 def test_declare_keyword_as_var() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_parse", "declare_keyword_as_var.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_parse", "declare_keyword_as_var.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -478,7 +478,7 @@ def test_declare_keyword_as_var() -> None:
 
 
 def test_invalid_specifier() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_parse", "invalid_specifier.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_parse", "invalid_specifier.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -491,7 +491,7 @@ def test_invalid_specifier() -> None:
 
 
 def test_invalid_type() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_parse", "invalid_type.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_parse", "invalid_type.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -504,7 +504,7 @@ def test_invalid_type() -> None:
 
 
 def test_invalid_variable_name() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_parse", "invalid_variable_name.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_parse", "invalid_variable_name.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -517,7 +517,7 @@ def test_invalid_variable_name() -> None:
 
 
 def test_malformed_compound_assignment() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_parse", "malformed_compound_assignment.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_parse", "malformed_compound_assignment.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -530,7 +530,7 @@ def test_malformed_compound_assignment() -> None:
 
 
 def test_malformed_decrement() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_parse", "malformed_decrement.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_parse", "malformed_decrement.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -543,7 +543,7 @@ def test_malformed_decrement() -> None:
 
 
 def test_malformed_increment() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_parse", "malformed_increment.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_parse", "malformed_increment.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -556,7 +556,7 @@ def test_malformed_increment() -> None:
 
 
 def test_malformed_less_equal() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_parse", "malformed_less_equal.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_parse", "malformed_less_equal.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -569,7 +569,7 @@ def test_malformed_less_equal() -> None:
 
 
 def test_malformed_not_equal() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_parse", "malformed_not_equal.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_parse", "malformed_not_equal.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -582,7 +582,7 @@ def test_malformed_not_equal() -> None:
 
 
 def test_missing_semicolon_3() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_parse", "missing_semicolon.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_parse", "missing_semicolon.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -595,7 +595,7 @@ def test_missing_semicolon_3() -> None:
 
 
 def test_return_in_assignment() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_parse", "return_in_assignment.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_parse", "return_in_assignment.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -608,7 +608,7 @@ def test_return_in_assignment() -> None:
 
 
 def test_binary_decrement() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_parse", "extra_credit", "binary_decrement.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_parse", "extra_credit", "binary_decrement.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -621,7 +621,7 @@ def test_binary_decrement() -> None:
 
 
 def test_binary_increment() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_parse", "extra_credit", "binary_increment.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_parse", "extra_credit", "binary_increment.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -634,7 +634,7 @@ def test_binary_increment() -> None:
 
 
 def test_compound_initializer() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_parse", "extra_credit", "compound_initializer.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_parse", "extra_credit", "compound_initializer.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -647,7 +647,7 @@ def test_compound_initializer() -> None:
 
 
 def test_increment_declaration() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_parse", "extra_credit", "increment_declaration.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_parse", "extra_credit", "increment_declaration.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -660,7 +660,7 @@ def test_increment_declaration() -> None:
 
 
 def test_declaration_as_statement() -> None:
-    path = os.path.join(TEST_DIR, "chapter_6", "invalid_parse", "declaration_as_statement.c")
+    path = os.path.join(TEST_DIR, "chapter_06", "invalid_parse", "declaration_as_statement.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -673,7 +673,7 @@ def test_declaration_as_statement() -> None:
 
 
 def test_empty_if_body() -> None:
-    path = os.path.join(TEST_DIR, "chapter_6", "invalid_parse", "empty_if_body.c")
+    path = os.path.join(TEST_DIR, "chapter_06", "invalid_parse", "empty_if_body.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -686,7 +686,7 @@ def test_empty_if_body() -> None:
 
 
 def test_if_assignment() -> None:
-    path = os.path.join(TEST_DIR, "chapter_6", "invalid_parse", "if_assignment.c")
+    path = os.path.join(TEST_DIR, "chapter_06", "invalid_parse", "if_assignment.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -699,7 +699,7 @@ def test_if_assignment() -> None:
 
 
 def test_if_no_parenst() -> None:
-    path = os.path.join(TEST_DIR, "chapter_6", "invalid_parse", "if_no_parens.c")
+    path = os.path.join(TEST_DIR, "chapter_06", "invalid_parse", "if_no_parens.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -712,7 +712,7 @@ def test_if_no_parenst() -> None:
 
 
 def test_incomplete_ternary() -> None:
-    path = os.path.join(TEST_DIR, "chapter_6", "invalid_parse", "incomplete_ternary.c")
+    path = os.path.join(TEST_DIR, "chapter_06", "invalid_parse", "incomplete_ternary.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -725,7 +725,7 @@ def test_incomplete_ternary() -> None:
 
 
 def test_malformed_ternary_2() -> None:
-    path = os.path.join(TEST_DIR, "chapter_6", "invalid_parse", "malformed_ternary_2.c")
+    path = os.path.join(TEST_DIR, "chapter_06", "invalid_parse", "malformed_ternary_2.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -738,7 +738,7 @@ def test_malformed_ternary_2() -> None:
 
 
 def test_malformed_ternary() -> None:
-    path = os.path.join(TEST_DIR, "chapter_6", "invalid_parse", "malformed_ternary.c")
+    path = os.path.join(TEST_DIR, "chapter_06", "invalid_parse", "malformed_ternary.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -751,7 +751,7 @@ def test_malformed_ternary() -> None:
 
 
 def test_mismatched_nesting() -> None:
-    path = os.path.join(TEST_DIR, "chapter_6", "invalid_parse", "mismatched_nesting.c")
+    path = os.path.join(TEST_DIR, "chapter_06", "invalid_parse", "mismatched_nesting.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -764,7 +764,7 @@ def test_mismatched_nesting() -> None:
 
 
 def test_wrong_ternary_delimiter() -> None:
-    path = os.path.join(TEST_DIR, "chapter_6", "invalid_parse", "wrong_ternary_delimiter.c")
+    path = os.path.join(TEST_DIR, "chapter_06", "invalid_parse", "wrong_ternary_delimiter.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -777,7 +777,7 @@ def test_wrong_ternary_delimiter() -> None:
 
 
 def test_goto_without_label() -> None:
-    path = os.path.join(TEST_DIR, "chapter_6", "invalid_parse", "extra_credit", "goto_without_label.c")
+    path = os.path.join(TEST_DIR, "chapter_06", "invalid_parse", "extra_credit", "goto_without_label.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -790,7 +790,7 @@ def test_goto_without_label() -> None:
 
 
 def test_kw_label() -> None:
-    path = os.path.join(TEST_DIR, "chapter_6", "invalid_parse", "extra_credit", "kw_label.c")
+    path = os.path.join(TEST_DIR, "chapter_06", "invalid_parse", "extra_credit", "kw_label.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -803,7 +803,7 @@ def test_kw_label() -> None:
 
 
 # def test_label_declaration() -> None:
-#     path = os.path.join(TEST_DIR, "chapter_6", "invalid_parse", "extra_credit", "label_declaration.c")
+#     path = os.path.join(TEST_DIR, "chapter_06", "invalid_parse", "extra_credit", "label_declaration.c")
 #     with open(path, "r") as fh:
 #         src = fh.read()
 #     tokens = Lexer(src).lex()
@@ -816,7 +816,7 @@ def test_kw_label() -> None:
 
 
 def test_label_expression_clause() -> None:
-    path = os.path.join(TEST_DIR, "chapter_6", "invalid_parse", "extra_credit", "label_expression_clause.c")
+    path = os.path.join(TEST_DIR, "chapter_06", "invalid_parse", "extra_credit", "label_expression_clause.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -829,7 +829,7 @@ def test_label_expression_clause() -> None:
 
 
 def test_label_outside_function() -> None:
-    path = os.path.join(TEST_DIR, "chapter_6", "invalid_parse", "extra_credit", "label_outside_function.c")
+    path = os.path.join(TEST_DIR, "chapter_06", "invalid_parse", "extra_credit", "label_outside_function.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -844,7 +844,7 @@ def test_label_outside_function() -> None:
 
 
 # def test_label_without_statement() -> None:
-#     path = os.path.join(TEST_DIR, "chapter_6", "invalid_parse", "extra_credit", "label_without_statement.c")
+#     path = os.path.join(TEST_DIR, "chapter_06", "invalid_parse", "extra_credit", "label_without_statement.c")
 #     with open(path, "r") as fh:
 #         src = fh.read()
 #     tokens = Lexer(src).lex()
@@ -858,7 +858,7 @@ def test_label_outside_function() -> None:
 
 
 def test_parenthesized_label() -> None:
-    path = os.path.join(TEST_DIR, "chapter_6", "invalid_parse", "extra_credit", "parenthesized_label.c")
+    path = os.path.join(TEST_DIR, "chapter_06", "invalid_parse", "extra_credit", "parenthesized_label.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -871,7 +871,7 @@ def test_parenthesized_label() -> None:
 
 
 def test_extra_brace() -> None:
-    path = os.path.join(TEST_DIR, "chapter_7", "invalid_parse", "extra_brace.c")
+    path = os.path.join(TEST_DIR, "chapter_07", "invalid_parse", "extra_brace.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -886,7 +886,7 @@ def test_extra_brace() -> None:
 
 
 def test_missing_brace() -> None:
-    path = os.path.join(TEST_DIR, "chapter_7", "invalid_parse", "missing_brace.c")
+    path = os.path.join(TEST_DIR, "chapter_07", "invalid_parse", "missing_brace.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -899,7 +899,7 @@ def test_missing_brace() -> None:
 
 
 def test_missing_semicolon_4() -> None:
-    path = os.path.join(TEST_DIR, "chapter_7", "invalid_parse", "missing_semicolon.c")
+    path = os.path.join(TEST_DIR, "chapter_07", "invalid_parse", "missing_semicolon.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -912,7 +912,7 @@ def test_missing_semicolon_4() -> None:
 
 
 def test_ternary_blocks() -> None:
-    path = os.path.join(TEST_DIR, "chapter_7", "invalid_parse", "ternary_blocks.c")
+    path = os.path.join(TEST_DIR, "chapter_07", "invalid_parse", "ternary_blocks.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -925,7 +925,7 @@ def test_ternary_blocks() -> None:
 
 
 def test_decl_as_loop_body() -> None:
-    path = os.path.join(TEST_DIR, "chapter_8", "invalid_parse", "decl_as_loop_body.c")
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_parse", "decl_as_loop_body.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -938,7 +938,7 @@ def test_decl_as_loop_body() -> None:
 
 
 def test_do_extra_semicolon() -> None:
-    path = os.path.join(TEST_DIR, "chapter_8", "invalid_parse", "do_extra_semicolon.c")
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_parse", "do_extra_semicolon.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -951,7 +951,7 @@ def test_do_extra_semicolon() -> None:
 
 
 def test_do_missing_semicolon() -> None:
-    path = os.path.join(TEST_DIR, "chapter_8", "invalid_parse", "do_missing_semicolon.c")
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_parse", "do_missing_semicolon.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -964,7 +964,7 @@ def test_do_missing_semicolon() -> None:
 
 
 def test_do_while_empty_parens() -> None:
-    path = os.path.join(TEST_DIR, "chapter_8", "invalid_parse", "do_while_empty_parens.c")
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_parse", "do_while_empty_parens.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -977,7 +977,7 @@ def test_do_while_empty_parens() -> None:
 
 
 def test_extra_for_header_clause() -> None:
-    path = os.path.join(TEST_DIR, "chapter_8", "invalid_parse", "extra_for_header_clause.c")
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_parse", "extra_for_header_clause.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -990,7 +990,7 @@ def test_extra_for_header_clause() -> None:
 
 
 def test_invalid_for_declaration() -> None:
-    path = os.path.join(TEST_DIR, "chapter_8", "invalid_parse", "invalid_for_declaration.c")
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_parse", "invalid_for_declaration.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -1003,7 +1003,7 @@ def test_invalid_for_declaration() -> None:
 
 
 def test_missing_for_header_clause() -> None:
-    path = os.path.join(TEST_DIR, "chapter_8", "invalid_parse", "missing_for_header_clause.c")
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_parse", "missing_for_header_clause.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -1016,7 +1016,7 @@ def test_missing_for_header_clause() -> None:
 
 
 def test_paren_mismatch() -> None:
-    path = os.path.join(TEST_DIR, "chapter_8", "invalid_parse", "paren_mismatch.c")
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_parse", "paren_mismatch.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -1029,7 +1029,7 @@ def test_paren_mismatch() -> None:
 
 
 def test_statement_in_condition() -> None:
-    path = os.path.join(TEST_DIR, "chapter_8", "invalid_parse", "statement_in_condition.c")
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_parse", "statement_in_condition.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -1042,7 +1042,7 @@ def test_statement_in_condition() -> None:
 
 
 def test_while_missing_paren() -> None:
-    path = os.path.join(TEST_DIR, "chapter_8", "invalid_parse", "while_missing_paren.c")
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_parse", "while_missing_paren.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -1055,7 +1055,7 @@ def test_while_missing_paren() -> None:
 
 
 def test_call_non_identifier() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_parse", "call_non_identifier.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_parse", "call_non_identifier.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -1068,7 +1068,7 @@ def test_call_non_identifier() -> None:
 
 
 def test_decl_wrong_closing_delim() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_parse", "decl_wrong_closing_delim.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_parse", "decl_wrong_closing_delim.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -1081,7 +1081,7 @@ def test_decl_wrong_closing_delim() -> None:
 
 
 def test_fun_decl_for_loop() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_parse", "fun_decl_for_loop.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_parse", "fun_decl_for_loop.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -1094,7 +1094,7 @@ def test_fun_decl_for_loop() -> None:
 
 
 def test_funcall_wrong_closing_delim() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_parse", "funcall_wrong_closing_delim.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_parse", "funcall_wrong_closing_delim.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -1107,7 +1107,7 @@ def test_funcall_wrong_closing_delim() -> None:
 
 
 def test_function_call_declaration() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_parse", "function_call_declaration.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_parse", "function_call_declaration.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -1120,7 +1120,7 @@ def test_function_call_declaration() -> None:
 
 
 def test_function_returning_function() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_parse", "function_returning_function.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_parse", "function_returning_function.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -1133,7 +1133,7 @@ def test_function_returning_function() -> None:
 
 
 def test_initialize_function_as_variable() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_parse", "initialize_function_as_variable.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_parse", "initialize_function_as_variable.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -1146,7 +1146,7 @@ def test_initialize_function_as_variable() -> None:
 
 
 def test_trailing_comma_decl() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_parse", "trailing_comma_decl.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_parse", "trailing_comma_decl.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -1159,7 +1159,7 @@ def test_trailing_comma_decl() -> None:
 
 
 def test_trailing_comma() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_parse", "trailing_comma.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_parse", "trailing_comma.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -1172,7 +1172,7 @@ def test_trailing_comma() -> None:
 
 
 def test_unclosed_paren_decl() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_parse", "unclosed_paren_decl.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_parse", "unclosed_paren_decl.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -1185,7 +1185,7 @@ def test_unclosed_paren_decl() -> None:
 
 
 def test_var_init_in_param_list() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_parse", "var_init_in_param_list.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_parse", "var_init_in_param_list.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -1195,6 +1195,7 @@ def test_var_init_in_param_list() -> None:
         assert False, "didn't fail successfully"
     except TokenTypeError as e:
         assert str(e) == "expected Comma, got Equal() @ 2:22"
+
 
 def test_extern_param() -> None:
     path = os.path.join(TEST_DIR, "chapter_10", "invalid_parse", "extern_param.c")
@@ -1208,6 +1209,7 @@ def test_extern_param() -> None:
     except TokenTypeError as e:
         assert str(e) == "expected Int, got Extern() @ 2:12"
 
+
 def test_missing_parameter_list() -> None:
     path = os.path.join(TEST_DIR, "chapter_10", "invalid_parse", "missing_parameter_list.c")
     with open(path, "r") as fh:
@@ -1219,6 +1221,7 @@ def test_missing_parameter_list() -> None:
         assert False, "didn't fail successfully"
     except TokenTypeError as e:
         assert str(e) == "expected Semicolon or Equal, got LeftBrace() @ 2:7"
+
 
 def test_missing_type_specifier() -> None:
     path = os.path.join(TEST_DIR, "chapter_10", "invalid_parse", "missing_type_specifier.c")
@@ -1232,6 +1235,7 @@ def test_missing_type_specifier() -> None:
     except ParserError as e:
         assert str(e) == "invalid types: [] @ 4:10"
 
+
 def test_multi_storage_class_fun() -> None:
     path = os.path.join(TEST_DIR, "chapter_10", "invalid_parse", "multi_storage_class_fun.c")
     with open(path, "r") as fh:
@@ -1243,6 +1247,7 @@ def test_multi_storage_class_fun() -> None:
         assert False, "didn't fail successfully"
     except ParserError as e:
         assert str(e) == "invalid storage classes: [Static(), Extern()] @ 2:21"
+
 
 def test_multi_storage_class_var() -> None:
     path = os.path.join(TEST_DIR, "chapter_10", "invalid_parse", "multi_storage_class_var.c")
@@ -1296,7 +1301,6 @@ def test_extern_label() -> None:
         assert str(e) == "invalid types: [] @ 4:12"
 
 
-
 def test_file_scope_label() -> None:
     path = os.path.join(TEST_DIR, "chapter_10", "invalid_parse", "extra_credit", "file_scope_label.c")
     with open(path, "r") as fh:
@@ -1321,5 +1325,3 @@ def test_static_label() -> None:
         assert False, "didn't fail successfully"
     except ParserError as e:
         assert str(e) == "invalid types: [] @ 4:12"
-
-
