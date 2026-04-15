@@ -659,7 +659,9 @@ class FuncDecl(Declaration):
             if not isinstance(old_decl, FuncType):
                 raise TypeCheckerError(f"incompatible function declarations for: {self.name}")
             elif len(old_decl.params) != len(params):
-                raise TypeCheckerError(f"function {self.name} redefined from {len(old_decl.params)} to {len(params)} parameters")
+                raise TypeCheckerError(
+                    f"function {self.name} redefined from {len(old_decl.params)} to {len(params)} parameters"
+                )
             elif old_decl.params != params:
                 old_params = " ".join(map(repr, old_decl.params))
                 new_params = " ".join(map(repr, params))

@@ -259,7 +259,9 @@ def test_pundeclared_compound_assignment_use() -> None:
 
 
 def test_undeclared_compound_assignment() -> None:
-    path = os.path.join(TEST_DIR, "chapter_05", "invalid_semantics", "extra_credit", "undeclared_compound_assignment.c")
+    path = os.path.join(
+        TEST_DIR, "chapter_05", "invalid_semantics", "extra_credit", "undeclared_compound_assignment.c"
+    )
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -962,7 +964,9 @@ def test_call_label_as_function() -> None:
 
 
 def test_compound_assign_to_fun_call() -> None:
-    path = os.path.join(TEST_DIR, "chapter_09", "invalid_declarations", "extra_credit", "compound_assign_to_fun_call.c")
+    path = os.path.join(
+        TEST_DIR, "chapter_09", "invalid_declarations", "extra_credit", "compound_assign_to_fun_call.c"
+    )
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()

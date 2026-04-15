@@ -60,12 +60,12 @@ class Lexer:
         self.offset = 0
 
     def eat(self, nchars: int = 1) -> str | None:
-        chars = self.src[self.idx:self.idx + nchars]
+        chars = self.src[self.idx : self.idx + nchars]
         if chars == "":
             return None
         elif len(chars) < nchars:
             raise UnexpectedEOF(f"Lexer.eat({nchars})")
-        
+
         self.idx += nchars
 
         for char in chars:
@@ -78,7 +78,7 @@ class Lexer:
         return chars
 
     def peek(self, nchars: int = 1) -> str | None:
-        chars = self.src[self.idx:self.idx + nchars]
+        chars = self.src[self.idx : self.idx + nchars]
         if nchars > 1 and len(chars) < nchars:
             raise UnexpectedEOF(f"Lexer.peek({nchars})")
         elif chars == "":
@@ -131,7 +131,7 @@ class Lexer:
                 next_chars = self.peek(num_chars)
             except UnexpectedEOF:
                 continue
-            
+
             if next_chars is not None and (tokentype := tok.Character().mapping.get(char + next_chars)) is not None:
                 _ = self.eat(num_chars)
                 return tok.Token(self.line, self.offset, tokentype)
@@ -162,7 +162,6 @@ class Lexer:
 
 
 if __name__ == "__main__":
-
     src = """
 int main(void) {
     // test case w/ multi-digit constant
