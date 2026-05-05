@@ -48,7 +48,7 @@ class MapEntry:
 class Resolver(Protocol):
     def resolve_identifiers(self, identifier_map: dict[str, MapEntry], inside_func: bool) -> Self: ...
     def resolve_goto_labels(self, labels: dict[str, bool], function_name: str) -> Self: ...
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> Self: ...
+    def resolve_loop_labels(self, labels: list[str], function_name: str) -> Self: ...
 
     def mangle_label(self, label: str, function_name: str) -> str:
         return f".label.{function_name}.{label}"
@@ -65,7 +65,7 @@ class Expr(Emitter, Resolver, TypeChecker):
     def resolve_goto_labels(self, labels: dict[str, bool], function_name: str) -> Self:
         raise NotImplementedError("cannot resolve goto labels for expressions")
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> Self:
+    def resolve_loop_labels(self, labels: list[str], function_name: str) -> Self:
         raise NotImplementedError("cannot resolve loop labels for expressions")
 
 
@@ -400,7 +400,7 @@ class FuncCall(Expr):
             return FuncCall(unique_name.name, unique_args)
         raise ResolverError(f"undeclared function: {self.name}")
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> Self:
+    def resolve_loop_labels(self, labels: list[str], function_name: str) -> Self:
         return self
 
     def emit(self, instructions: list[tacky.Instruction]) -> tacky.Value:
@@ -490,7 +490,7 @@ class VarDecl(Declaration):
     def resolve_goto_labels(self, labels: dict[str, bool], function_name: str) -> Self:
         return self
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> Self:
+    def resolve_loop_labels(self, labels: list[str], function_name: str) -> Self:
         return self
 
     def typecheck_file_scope(self, symbol_table: SymbolTable, file_scope: bool) -> None:
@@ -643,8 +643,8 @@ class FuncDecl(Declaration):
 
         return FuncDecl(self.name, self.params, body, self.type_, self.storage_class)
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> "FuncDecl":
-        body = None if self.body is None else self.body.resolve_loop_labels(current_label, self.name)
+    def resolve_loop_labels(self, labels: list[str], function_name: str) -> "FuncDecl":
+        body = None if self.body is None else self.body.resolve_loop_labels(labels, self.name)
         return FuncDecl(self.name, self.params, body, self.type_, self.storage_class)
 
     def typecheck(self, symbol_table: SymbolTable, file_scope: bool) -> None:
@@ -715,8 +715,8 @@ class Block(Stmt):
     def resolve_goto_labels(self, labels: dict[str, bool], function_name: str) -> "Block":
         return Block([item.resolve_goto_labels(labels, function_name) for item in self.items])
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> "Block":
-        items = [item.resolve_loop_labels(current_label, function_name) for item in self.items]
+    def resolve_loop_labels(self, labels: list[str], function_name: str) -> "Block":
+        items = [item.resolve_loop_labels(labels, function_name) for item in self.items]
         return Block(items)
 
     def typecheck(self, symbol_table: SymbolTable, file_scope: bool) -> None:
@@ -743,7 +743,7 @@ class Return(Stmt):
     def resolve_goto_labels(self, labels: dict[str, bool], function_name: str) -> Self:
         return self
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> Self:
+    def resolve_loop_labels(self, labels: list[str], function_name: str) -> Self:
         return self
 
     def typecheck(self, symbol_table: SymbolTable, file_scope: bool) -> None:
@@ -767,7 +767,7 @@ class Expression(Stmt):
     def resolve_goto_labels(self, labels: dict[str, bool], function_name: str) -> Self:
         return self
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> Self:
+    def resolve_loop_labels(self, labels: list[str], function_name: str) -> Self:
         return self
 
     def typecheck(self, symbol_table: SymbolTable, file_scope: bool) -> None:
@@ -814,9 +814,9 @@ class If(Stmt):
         else_ = None if self.else_ is None else self.else_.resolve_goto_labels(labels, function_name)
         return If(self.cond, then, else_)
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> "If":
-        then = self.then.resolve_loop_labels(current_label, function_name)
-        else_ = None if self.else_ is None else self.else_.resolve_loop_labels(current_label, function_name)
+    def resolve_loop_labels(self, labels: list[str], function_name: str) -> "If":
+        then = self.then.resolve_loop_labels(labels, function_name)
+        else_ = None if self.else_ is None else self.else_.resolve_loop_labels(labels, function_name)
         return If(self.cond, then, else_)
 
     def typecheck(self, symbol_table: SymbolTable, file_scope: bool) -> None:
@@ -849,7 +849,7 @@ class Label(Stmt):
 
         return Label(name)
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> Self:
+    def resolve_loop_labels(self, labels: list[str], function_name: str) -> Self:
         return self
 
     def typecheck(self, symbol_table: SymbolTable, file_scope: bool) -> None:
@@ -877,7 +877,7 @@ class Goto(Stmt):
 
         return Goto(name)
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> Self:
+    def resolve_loop_labels(self, labels: list[str], function_name: str) -> Self:
         return self
 
     def typecheck(self, symbol_table: SymbolTable, file_scope: bool) -> None:
@@ -901,8 +901,8 @@ class Compound(Stmt):
     def resolve_goto_labels(self, labels: dict[str, bool], function_name: str) -> "Compound":
         return Compound(self.block.resolve_goto_labels(labels, function_name))
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> "Compound":
-        return Compound(self.block.resolve_loop_labels(current_label, function_name))
+    def resolve_loop_labels(self, labels: list[str], function_name: str) -> "Compound":
+        return Compound(self.block.resolve_loop_labels(labels, function_name))
 
     def typecheck(self, symbol_table: SymbolTable, file_scope: bool) -> None:
         self.block.typecheck(symbol_table, file_scope)
@@ -922,10 +922,10 @@ class Break(Stmt):
     def resolve_goto_labels(self, labels: dict[str, bool], function_name: str) -> Self:
         return self
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> "Break":
-        if current_label is None:
+    def resolve_loop_labels(self, labels: list[str], function_name: str) -> "Break":
+        if len(labels) == 0:
             raise ResolverError("break statement outside of loop")
-        return Break(current_label)
+        return Break(labels[-1])
 
     def emit(self, instructions: list[tacky.Instruction]) -> tacky.Value:
         assert self.label is not None
@@ -950,10 +950,10 @@ class Continue(Stmt):
     def resolve_goto_labels(self, labels: dict[str, bool], function_name: str) -> Self:
         return self
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> "Continue":
-        if current_label is None:
+    def resolve_loop_labels(self, labels: list[str], function_name: str) -> "Continue":
+        if len(labels) == 0:
             raise ResolverError("continue statement outside of loop")
-        return Continue(current_label)
+        return Continue(labels[-1])
 
     def emit(self, instructions: list[tacky.Instruction]) -> tacky.Value:
         assert self.label is not None
@@ -965,17 +965,17 @@ class Continue(Stmt):
 
 
 class While(Stmt):
-    def __init__(self, cond: Expr, body: Stmt, label: str | None = None) -> None:
+    def __init__(self, cond: Expr, body: Stmt, labels: list[str] = []) -> None:
         self.cond = cond
         self.body = body
-        self.label = label
+        self.labels = labels
 
     def __repr__(self) -> str:
         cond = repr(self.cond)
         body = repr(self.body)
 
         return f"""
-        While|{self.label}| ({cond})
+        While|{self.labels[-1]}| ({cond})
           {body.replace("\n", "\n        ")}
         ) """.strip()
 
@@ -988,15 +988,16 @@ class While(Stmt):
         body = self.body.resolve_goto_labels(labels, function_name)
         return While(self.cond, body)
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> "While":
-        current_label = make_label_name(f"while.{function_name}")
-        body = self.body.resolve_loop_labels(current_label, function_name)
-        return While(self.cond, body, current_label)
+    def resolve_loop_labels(self, labels: list[str], function_name: str) -> "While":
+        current_labels = labels + [make_label_name(f"while.{function_name}")]
+        body = self.body.resolve_loop_labels(current_labels, function_name)
+        return While(self.cond, body, current_labels)
 
     def emit(self, instructions: list[tacky.Instruction]) -> tacky.Value:
-        assert self.label is not None
-        continue_ = tacky.Label(f"__continue__{self.label}")
-        break_ = tacky.Label(f"__break__{self.label}")
+        assert len(self.labels) > 0
+        curent_label = self.labels[-1]
+        continue_ = tacky.Label(f"__continue__{curent_label}")
+        break_ = tacky.Label(f"__break__{curent_label}")
 
         instructions.append(continue_)
         dst = self.cond.emit(instructions)
@@ -1017,17 +1018,17 @@ class While(Stmt):
 
 
 class DoWhile(Stmt):
-    def __init__(self, cond: Expr, body: Stmt, label: str | None = None) -> None:
+    def __init__(self, cond: Expr, body: Stmt, labels: list[str] = []) -> None:
         self.cond = cond
         self.body = body
-        self.label = label
+        self.labels = labels
 
     def __repr__(self) -> str:
         cond = repr(self.cond)
         body = repr(self.body)
 
         return f"""
-        Do|{self.label}| (
+        Do|{self.labels[-1]}| (
           {body.replace("\n", "\n        ")}
         ) While ({cond})""".strip()
 
@@ -1040,16 +1041,17 @@ class DoWhile(Stmt):
         body = self.body.resolve_goto_labels(labels, function_name)
         return DoWhile(self.cond, body)
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> "DoWhile":
-        current_label = make_label_name(f"dowhile.{function_name}")
-        body = self.body.resolve_loop_labels(current_label, function_name)
-        return DoWhile(self.cond, body, current_label)
+    def resolve_loop_labels(self, labels: list[str], function_name: str) -> "DoWhile":
+        current_labels = labels + [make_label_name(f"dowhile.{function_name}")]
+        body = self.body.resolve_loop_labels(current_labels, function_name)
+        return DoWhile(self.cond, body, current_labels)
 
     def emit(self, instructions: list[tacky.Instruction]) -> tacky.Value:
-        assert self.label is not None
-        start = tacky.Label(f"__start__{self.label}")
-        continue_ = tacky.Label(f"__continue__{self.label}")
-        break_ = tacky.Label(f"__break__{self.label}")
+        assert len(self.labels) > 0
+        current_label = self.labels[-1]
+        start = tacky.Label(f"__start__{current_label}")
+        continue_ = tacky.Label(f"__continue__{current_label}")
+        break_ = tacky.Label(f"__break__{current_label}")
 
         instructions.append(start)
         _ = self.body.emit(instructions)
@@ -1075,13 +1077,13 @@ class For(Stmt):
         cond: Expr | None,
         post: Expr | None,
         body: Stmt,
-        label: str | None = None,
+        labels: list[str] = [],
     ) -> None:
         self.init = init
         self.cond = cond
         self.post = post
         self.body = body
-        self.label = label
+        self.labels = labels
 
     def __repr__(self) -> str:
         init = None if self.init is None else repr(self.init)
@@ -1090,7 +1092,7 @@ class For(Stmt):
         body = repr(self.body)
 
         return f"""
-        For|{self.label}| (
+        For|{self.labels[-1]}| (
           init = {init}
           cond = {cond}
           post = {post}
@@ -1109,16 +1111,17 @@ class For(Stmt):
         body = self.body.resolve_goto_labels(labels, function_name)
         return For(self.init, self.cond, self.post, body)
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> "For":
-        current_label = make_label_name(f"for.{function_name}")
-        body = self.body.resolve_loop_labels(current_label, function_name)
-        return For(self.init, self.cond, self.post, body, current_label)
+    def resolve_loop_labels(self, labels: list[str], function_name: str) -> "For":
+        current_labels = labels + [make_label_name(f"for.{function_name}")]
+        body = self.body.resolve_loop_labels(current_labels, function_name)
+        return For(self.init, self.cond, self.post, body, current_labels)
 
     def emit(self, instructions: list[tacky.Instruction]) -> tacky.Value:
-        assert self.label is not None
-        start = tacky.Label(f"__start__{self.label}")
-        continue_ = tacky.Label(f"__continue__{self.label}")
-        break_ = tacky.Label(f"__break__{self.label}")
+        assert len(self.labels) > 0
+        current_label = self.labels[-1]
+        start = tacky.Label(f"__start__{current_label}")
+        continue_ = tacky.Label(f"__continue__{current_label}")
+        break_ = tacky.Label(f"__break__{current_label}")
 
         if self.init is not None:
             _ = self.init.emit(instructions)
@@ -1153,10 +1156,10 @@ class For(Stmt):
 
 
 class Switch(Stmt):
-    def __init__(self, condition: Expr, body: Stmt, label: str | None = None) -> None:
+    def __init__(self, condition: Expr, body: Stmt, labels: list[str] = []) -> None:
         self.condition = condition
         self.body = body
-        self.label = label
+        self.labels = labels
 
     def typecheck(self, symbol_table: dict[str, IntType | FuncType], file_scope: bool) -> None:
         self.condition.typecheck(symbol_table, file_scope)
@@ -1172,20 +1175,15 @@ class Switch(Stmt):
         body = self.body.resolve_goto_labels(labels, function_name)
         return Switch(self.condition, body)
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> "Switch":
-        current_label = make_label_name(f"switch.{function_name}")
-        body = self.body.resolve_loop_labels(current_label, function_name)
-        return Switch(self.condition, body, current_label)
+    def resolve_loop_labels(self, labels: list[str], function_name: str) -> "Switch":
+        current_labels = labels + [make_label_name(f"switch.{function_name}")]
+        body = self.body.resolve_loop_labels(current_labels, function_name)
+        return Switch(self.condition, body, current_labels)
 
     def emit(self, instructions: list) -> tacky.Value:
         assert self.label is not None
         break_ = tacky.Label(f"__break__{self.label}")
-
-        
-
-
-
-        
+        return tacky.Null()
 
 
 class Case(Stmt):
@@ -1206,8 +1204,8 @@ class Case(Stmt):
         body = self.body.resolve_goto_labels(labels, function_name)
         return Case(self.value, body)
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> "Case":
-        body = self.body.resolve_loop_labels(current_label, function_name)
+    def resolve_loop_labels(self, labels: list[str], function_name: str) -> "Case":
+        body = self.body.resolve_loop_labels(labels, function_name)
         return Case(self.value, body)
 
     def emit(self, instructions: list) -> object:
@@ -1229,8 +1227,8 @@ class Default(Stmt):
         body = self.body.resolve_goto_labels(labels, function_name)
         return Default(body)
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> "Default":
-        body = self.body.resolve_loop_labels(current_label, function_name)
+    def resolve_loop_labels(self, labels: list[str], function_name: str) -> "Default":
+        body = self.body.resolve_loop_labels(labels, function_name)
         return Default(body)
 
     def emit(self, instructions: list) -> tacky.Value:
@@ -1254,7 +1252,7 @@ class Null(Stmt):
     def resolve_goto_labels(self, labels: dict[str, bool], function_name: str) -> "Null":
         return Null()
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> "Null":
+    def resolve_loop_labels(self, labels: list[str], function_name: str) -> "Null":
         return Null()
 
     def typecheck(self, symbol_table: SymbolTable, file_scope: bool) -> None:
@@ -1302,7 +1300,7 @@ class Program:
         for decl in self.decls:
             decl = decl.resolve_identifiers(identifier_map, False)
             decl = decl.resolve_goto_labels({}, decl.name)
-            decl = decl.resolve_loop_labels(None, decl.name)
+            decl = decl.resolve_loop_labels([], decl.name)
             decl.typecheck(self.symbol_table, True)
             decls.append(decl)
         return Program(decls, self.symbol_table)
