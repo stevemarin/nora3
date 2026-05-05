@@ -330,7 +330,23 @@ class Parser:
                 body = self.stmt()
                 return asts.For(init, maybe_cond, maybe_post, body)
             case tok.Switch:
-                raise NotImplementedError("no switch yet")
+                _ = self.eat(tok.Switch)
+                _ = self.eat(tok.LeftParen)
+                cond = self.expr()
+                _ = self.eat(tok.RightParen)
+                body = self.stmt()
+                return asts.Switch(cond, body)
+            case tok.Case:
+                _ = self.eat(tok.Case)
+                value = self.expr()
+                _ = self.eat(tok.Colon)
+                body = self.stmt()
+                return asts.Case(value, body)
+            case tok.Default:
+                _ = self.eat(tok.Default)
+                _ = self.eat(tok.Colon)
+                body = self.stmt()
+                return asts.Default(body)
             case _:
                 stmt = asts.Expression(self.expr())
                 _ = self.eat(tok.Semicolon)

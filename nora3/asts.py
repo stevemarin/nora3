@@ -1152,6 +1152,92 @@ class For(Stmt):
         self.post.typecheck(symbol_table, file_scope) if self.post is not None else ...
 
 
+class Switch(Stmt):
+    def __init__(self, condition: Expr, body: Stmt, label: str | None = None) -> None:
+        self.condition = condition
+        self.body = body
+        self.label = label
+
+    def typecheck(self, symbol_table: dict[str, IntType | FuncType], file_scope: bool) -> None:
+        self.condition.typecheck(symbol_table, file_scope)
+        self.body.typecheck(symbol_table, file_scope)
+
+    def resolve_identifiers(self, identifier_map: dict[str, MapEntry], inside_func: bool) -> "Switch":
+        new_identifier_map = self.copy_variable_map(identifier_map)
+        condition = self.condition.resolve_identifiers(new_identifier_map, inside_func)
+        body = self.body.resolve_identifiers(new_identifier_map, inside_func)
+        return Switch(condition, body)
+
+    def resolve_goto_labels(self, labels: dict[str, bool], function_name: str) -> "Switch":
+        body = self.body.resolve_goto_labels(labels, function_name)
+        return Switch(self.condition, body)
+
+    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> "Switch":
+        current_label = make_label_name(f"switch.{function_name}")
+        body = self.body.resolve_loop_labels(current_label, function_name)
+        return Switch(self.condition, body, current_label)
+
+    def emit(self, instructions: list) -> tacky.Value:
+        assert self.label is not None
+        break_ = tacky.Label(f"__break__{self.label}")
+
+        
+
+
+
+        
+
+
+class Case(Stmt):
+    def __init__(self, value: Expr, body: Stmt) -> None:
+        self.value = value
+        self.body = body
+
+    def typecheck(self, symbol_table: dict[str, IntType | FuncType], file_scope: bool) -> None:
+        self.value.typecheck(symbol_table, file_scope)
+        self.body.typecheck(symbol_table, file_scope)
+
+    def resolve_identifiers(self, identifier_map: dict[str, MapEntry], inside_func: bool) -> "Case":
+        value = self.value.resolve_identifiers(identifier_map, inside_func)
+        body = self.body.resolve_identifiers(identifier_map, inside_func)
+        return Case(value, body)
+
+    def resolve_goto_labels(self, labels: dict[str, bool], function_name: str) -> "Case":
+        body = self.body.resolve_goto_labels(labels, function_name)
+        return Case(self.value, body)
+
+    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> "Case":
+        body = self.body.resolve_loop_labels(current_label, function_name)
+        return Case(self.value, body)
+
+    def emit(self, instructions: list) -> object:
+        raise NotImplementedError
+
+
+class Default(Stmt):
+    def __init__(self, body: Stmt) -> None:
+        self.body = body
+
+    def typecheck(self, symbol_table: dict[str, IntType | FuncType], file_scope: bool) -> None:
+        self.body.typecheck(symbol_table, file_scope)
+
+    def resolve_identifiers(self, identifier_map: dict[str, MapEntry], inside_func: bool) -> "Default":
+        body = self.body.resolve_identifiers(identifier_map, inside_func)
+        return Default(body)
+
+    def resolve_goto_labels(self, labels: dict[str, bool], function_name: str) -> "Default":
+        body = self.body.resolve_goto_labels(labels, function_name)
+        return Default(body)
+
+    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> "Default":
+        body = self.body.resolve_loop_labels(current_label, function_name)
+        return Default(body)
+
+    def emit(self, instructions: list) -> tacky.Value:
+        self.body.emit(instructions)
+        return tacky.Null()
+
+
 class Null(Stmt):
     def __init__(self):
         pass
