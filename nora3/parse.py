@@ -256,6 +256,17 @@ class Parser:
             _ = self.eat(tok.Semicolon)
             return expr
 
+    def case(self) -> asts.Block:
+        stmts: list[asts.BlockItem] = []
+        while True:
+            match (type(self.peek().tokentype)):
+                case tok.RightBrace | tok.Default | tok.Case:
+                    break
+                case _:
+                    stmts.append(self.stmt())
+        return asts.Block(stmts)
+
+
     def stmt(self) -> asts.Stmt:
         match type(self.peek().tokentype):
             case tok.Return:
@@ -341,7 +352,7 @@ class Parser:
                 _ = self.eat(tok.Case)
                 value = self.expr()
                 _ = self.eat(tok.Colon)
-                body = self.stmt()
+                body = self.case()
                 return asts.Case(value, body)
             case tok.Default:
                 _ = self.eat(tok.Default)
