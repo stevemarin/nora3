@@ -1193,6 +1193,8 @@ class Switch(Stmt):
         self.condition.typecheck(symbol_table, file_scope)
         self.body.typecheck(symbol_table, file_scope)
 
+        # TODO: make sure cases are unique (include 0 or 1 defaults)
+
     def resolve_identifiers(self, identifier_map: dict[str, MapEntry], inside_func: bool) -> "Switch":
         new_identifier_map = self.copy_variable_map(identifier_map)
         condition = self.condition.resolve_identifiers(new_identifier_map, inside_func)
