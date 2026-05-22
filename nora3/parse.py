@@ -286,7 +286,8 @@ class Parser:
             case tok.Identifier if self.peek2(tok.Colon):
                 name = self.eat(tok.Identifier).tokentype.value
                 _ = self.eat(tok.Colon)
-                return asts.Label(name)
+                stmt = self.stmt()
+                return asts.Label(name, stmt)
             case tok.LeftBrace:
                 _ = self.eat(tok.LeftBrace)
                 items = []

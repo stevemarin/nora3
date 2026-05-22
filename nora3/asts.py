@@ -832,18 +832,21 @@ class If(Stmt):
 
 
 class Label(Stmt):
-    def __init__(self, name: str) -> None:
+    def __init__(self, name: str, stmt: Stmt) -> None:
         self.name = name
+        self.stmt = stmt
 
     def __repr__(self) -> str:
         return f"Label({self.name})"
 
     def emit(self, instructions: list[tacky.Instruction]) -> tacky.Value:
         instructions.append(tacky.Label(self.name))
+        _ = self.stmt.emit(instructions)
         return tacky.Null()
 
-    def resolve_identifiers(self, identifier_map: dict[str, MapEntry], inside_func: bool) -> Self:
-        return self
+    def resolve_identifiers(self, identifier_map: dict[str, MapEntry], inside_func: bool) -> "Label":
+        stmt = self.stmt.resolve_identifiers(identifier_map, inside_func)
+        return Label(self.name, stmt)
 
     def resolve_goto_labels(self, labels: dict[str, bool], function_name: str) -> "Label":
         name = self.mangle_label(self.name, function_name)
@@ -853,13 +856,16 @@ class Label(Stmt):
         else:
             labels[name] = True
 
-        return Label(name)
+        stmt = self.stmt.resolve_goto_labels(labels, function_name)
 
-    def resolve_loop_labels(self, labels: list[str], function_name: str) -> Self:
-        return self
+        return Label(name, stmt)
+
+    def resolve_loop_labels(self, labels: list[str], function_name: str) -> "Label":
+        stmt = self.stmt.resolve_loop_labels(labels, function_name)
+        return Label(self.name, stmt)
 
     def typecheck(self, symbol_table: SymbolTable, file_scope: bool) -> None:
-        pass
+        self.stmt.typecheck(symbol_table, file_scope)
 
 
 class Goto(Stmt):
