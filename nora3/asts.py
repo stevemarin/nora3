@@ -61,7 +61,7 @@ class TypeChecker(Protocol):
     def typecheck(self, symbol_table: SymbolTable, file_scope: bool) -> None: ...
 
 
-class Expr(Emitter, Resolver, TypeChecker):
+class Expr(Emitter[tacky.Instruction, tacky.Value], Resolver, TypeChecker):
     def resolve_goto_labels(self, labels: dict[str, bool], function_name: str) -> Self:
         raise NotImplementedError("cannot resolve goto labels for expressions")
 
@@ -346,6 +346,12 @@ class Conditional(Binary, tokentype=tok.Question(), precedence=3):
     def __init__(self, left: Expr, middle: Expr, right: Expr):
         super().__init__(left, right)
         self.middle = middle
+
+    def __repr__(self) -> str:
+        left = repr(self.left)
+        middle = repr(self.middle)
+        right = repr(self.right)
+        return f"{self.__class__.__name__}({left} ? {middle} : {right})"
 
     def resolve_identifiers(self, identifier_map: dict[str, MapEntry], inside_func: bool) -> "Conditional":
         left = self.left.resolve_identifiers(identifier_map, inside_func)
@@ -953,7 +959,17 @@ class Continue(Stmt):
     def resolve_loop_labels(self, labels: list[str], function_name: str) -> "Continue":
         if len(labels) == 0:
             raise ResolverError("continue statement outside of loop")
-        return Continue(labels[-1])
+
+        label = None
+        for idx in range(len(labels)):
+            label = labels[-(idx + 1)]
+            if "__switch__" in label:
+                continue
+            else:
+                break
+
+        assert label is not None
+        return Continue(label)
 
     def emit(self, instructions: list[tacky.Instruction]) -> tacky.Value:
         assert self.label is not None
@@ -1092,7 +1108,7 @@ class For(Stmt):
         body = repr(self.body)
 
         return f"""
-        For|{self.labels[-1]}| (
+        For|{self.labels}| (
           init = {init}
           cond = {cond}
           post = {post}
@@ -1161,6 +1177,12 @@ class Switch(Stmt):
         self.body = body
         self.labels = labels
 
+    def __repr__(self) -> str:
+        return f"""
+        Switch|{self.condition}|
+            {repr(self.body).replace("\n", "\n        ")}
+        """.strip()
+
     def typecheck(self, symbol_table: dict[str, IntType | FuncType], file_scope: bool) -> None:
         self.condition.typecheck(symbol_table, file_scope)
         self.body.typecheck(symbol_table, file_scope)
@@ -1176,13 +1198,48 @@ class Switch(Stmt):
         return Switch(self.condition, body)
 
     def resolve_loop_labels(self, labels: list[str], function_name: str) -> "Switch":
-        current_labels = labels + [make_label_name(f"switch.{function_name}")]
+        current_labels = labels + [make_label_name(f"__switch__.{function_name}")]
         body = self.body.resolve_loop_labels(current_labels, function_name)
         return Switch(self.condition, body, current_labels)
 
-    def emit(self, instructions: list) -> tacky.Value:
-        assert self.label is not None
-        break_ = tacky.Label(f"__break__{self.label}")
+    def emit(self, instructions: list[tacky.Instruction]) -> tacky.Value:
+
+        cond_dst = self.condition.emit(instructions)
+
+        instrs: list[tacky.Instruction] = []
+        _ = self.body.emit(instrs)
+
+        assert len(self.labels) > 0
+        break_ = tacky.Label(f"__break__{self.labels[-1]}")
+
+        values_and_labels: list[tuple[tacky.Constant | None, tacky.Label]] = []
+        for idx, instr in enumerate(instrs):
+            match instr:
+                case tacky.SwitchCasePlaceholder():
+                    assert isinstance(instr.value, tacky.Constant | None)
+                    label = str(instr.value.value) if instr.value is not None else "__default__"
+                    label = tacky.Label(make_label_name(f"__switch__.{label}"))
+                    values_and_labels.append((instr.value, label))
+                    instrs[idx] = label
+                case tacky.Jump() if "__break__" in instr.label:
+                    instrs[idx] = tacky.Jump(break_.label)
+
+        for case_value, case_label in values_and_labels:
+            if case_value is not None:
+                dst = tacky.Variable(make_temp_variable_name())
+                instructions.extend(
+                    [
+                        tacky.NotEqual(cond_dst, case_value, dst),
+                        tacky.JumpIfZero(dst, case_label.label),
+                    ]
+                )
+            else:
+                instructions.append(tacky.Jump(case_label.label))
+
+        instructions.append(tacky.Jump(break_.label))
+        instructions.extend(instrs)
+        instructions.append(break_)
+
         return tacky.Null()
 
 
@@ -1190,6 +1247,12 @@ class Case(Stmt):
     def __init__(self, value: Expr, body: Stmt) -> None:
         self.value = value
         self.body = body
+
+    def __repr__(self) -> str:
+        return f"""
+        Case|{self.value}|
+            {repr(self.body).replace("\n", "\n        ")}
+        """.strip()
 
     def typecheck(self, symbol_table: dict[str, IntType | FuncType], file_scope: bool) -> None:
         self.value.typecheck(symbol_table, file_scope)
@@ -1208,13 +1271,22 @@ class Case(Stmt):
         body = self.body.resolve_loop_labels(labels, function_name)
         return Case(self.value, body)
 
-    def emit(self, instructions: list) -> object:
-        raise NotImplementedError
+    def emit(self, instructions: list[tacky.Instruction]) -> object:
+        value = self.value.emit(instructions)
+        instructions.append(tacky.SwitchCasePlaceholder(value))
+        self.body.emit(instructions)
+        return tacky.Null()
 
 
 class Default(Stmt):
     def __init__(self, body: Stmt) -> None:
         self.body = body
+
+    def __repr__(self) -> str:
+        return f"""
+        Default||
+            {repr(self.body).replace("\n", "\n        ")}
+        """.strip()
 
     def typecheck(self, symbol_table: dict[str, IntType | FuncType], file_scope: bool) -> None:
         self.body.typecheck(symbol_table, file_scope)
@@ -1231,7 +1303,8 @@ class Default(Stmt):
         body = self.body.resolve_loop_labels(labels, function_name)
         return Default(body)
 
-    def emit(self, instructions: list) -> tacky.Value:
+    def emit(self, instructions: list[tacky.Instruction]) -> tacky.Value:
+        instructions.append(tacky.SwitchCasePlaceholder())
         self.body.emit(instructions)
         return tacky.Null()
 
@@ -1304,13 +1377,3 @@ class Program:
             decl.typecheck(self.symbol_table, True)
             decls.append(decl)
         return Program(decls, self.symbol_table)
-
-
-if __name__ == "__main__":
-    expr: Expr = Constant(3)
-    expr = Unary.from_tokentype(tok.Hyphen)(expr)
-    expr = Unary.from_tokentype(tok.Tilde)(expr)
-
-    instructions: list[tacky.Instruction] = []
-    print(expr.emit(instructions))
-    print(instructions)

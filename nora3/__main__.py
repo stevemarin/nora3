@@ -20,6 +20,11 @@ parser.add_argument(
     default="test",
     choices=["lex", "parse", "resolve", "tacky", "asm", "codegen", "assemble", "run", "test"],
 )
+parser.add_argument(
+    "--debug",
+    action="store_true",
+    default=False,
+)
 
 args = parser.parse_args()
 
@@ -47,29 +52,46 @@ with open(args.filename, "r") as fh:
     src = fh.read()
 
 tokens = lex.Lexer(src).lex()
+if args.debug:
+    print("TOKENS:")
+    print(tokens)
 if args.stop_after == "lex":
     exit(0)
 
 ast = parse.Parser(tokens).parse()
+if args.debug:
+    print("RAW AST:")
+    print(ast)
 if args.stop_after == "parse":
     exit(0)
 
 ast = ast.resolve()
+if args.debug:
+    print("RESOLVED AST:")
+    print(ast)
 if args.stop_after == "resolve":
     exit(0)
 
 ir = ast.to_tacky()
+if args.debug:
+    print("IR:")
+    print(ir)
 if args.stop_after == "tacky":
     exit(0)
 
 assembly = ir.to_asm()
 assembly.replace_pseudo(0, {})
 assembly = assembly.fix_instructions()
-
+if args.debug:
+    print("ASM:")
+    print(assembly)
 if args.stop_after == "asm":
     exit(0)
 
 code = assembly.codegen()
+if args.debug:
+    print("CODE:")
+    print(code)
 if args.stop_after == "codegen":
     exit(0)
 
