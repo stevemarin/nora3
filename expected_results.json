@@ -2388,6 +2388,9 @@
     "chapter_08/valid/empty_loop_body.c": {
         "return_code": 252
     },
+    "chapter_08/valid/for_decl_no_init.c": {
+        "return_code": 2
+    },
     "chapter_08/valid/extra_credit/case_block.c": {
         "return_code": 1
     },
