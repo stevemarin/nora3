@@ -259,13 +259,12 @@ class Parser:
     def case(self) -> asts.Block:
         stmts: list[asts.BlockItem] = []
         while True:
-            match (type(self.peek().tokentype)):
+            match type(self.peek().tokentype):
                 case tok.RightBrace | tok.Default | tok.Case:
                     break
                 case _:
                     stmts.append(self.stmt())
         return asts.Block(stmts)
-
 
     def stmt(self) -> asts.Stmt:
         match type(self.peek().tokentype):
@@ -381,74 +380,3 @@ class Parser:
 
     def parse(self) -> asts.Program:
         return self.program()
-
-
-if __name__ == "__main__":
-    from nora3.lex import Lexer
-
-    src = """
-int f(void) {
-    static int i = 0;
-    static int j = 0;
-    static int k = 1;
-    static int l = 48;
-    i += 1;
-    j -= i;
-    k *= j;
-    l /= 2;
-
-    // expected values after 3 invocations:
-    // i = 3
-    // j = -6
-    // k = -18
-    // l = 6
-    if (i != 1) {
-        return 1;
-    }
-    if (j != -6) {
-        return 2;
-    }
-    if (k != -18) {
-        return 3;
-    }
-    if (l != 6) {
-        return 4;
-    }
-    return 0;
-}
-
-int main(void) {
-    f();
-    f();
-    return f();
-}
-"""
-    pseudo: dict[str, int] = {}
-
-    tokens = Lexer(src).lex()
-    print("tokens:")
-    for t in tokens:
-        print("    ", t)
-
-    ast = Parser(tokens).parse()
-    print(ast)
-
-    ast = ast.resolve()
-    print("ast", repr(ast))
-
-    ir = ast.to_tacky()
-    print("ir", repr(ir))
-
-    ass = ir.to_asm()
-    print("ass", repr(ass))
-
-    ass.replace_pseudo(0, pseudo)
-    print("psuedo", repr(ass))
-
-    ass = ass.fix_instructions()
-    print("fix", repr(ass))
-
-    code = ass.codegen()
-
-    print(pseudo)
-    print(code)

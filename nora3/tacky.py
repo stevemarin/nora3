@@ -464,10 +464,3 @@ class Program(ToAsm):
 
     def to_asm(self) -> asm.Program:
         return asm.Program([func.to_asm() for func in self.top_level], self.symbol_table)
-
-
-if __name__ == "__main__":
-    instructions: list[asm.Instruction] = []
-    c = Negate(Constant(3), Variable("aaa"))
-    c.emit(instructions)
-    print(instructions)

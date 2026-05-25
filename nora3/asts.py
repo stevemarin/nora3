@@ -1111,10 +1111,11 @@ class For(Stmt):
         init = None if self.init is None else repr(self.init)
         cond = None if self.cond is None else repr(self.cond)
         post = None if self.post is None else repr(self.post)
+        labels = self.labels[-1] if len(self.labels) > 0 else ""
         body = repr(self.body)
 
         return f"""
-        For|{self.labels}| (
+        For|{labels}| (
           init = {init}
           cond = {cond}
           post = {post}
@@ -1222,15 +1223,12 @@ class Switch(Stmt):
 
         values_and_labels: list[tuple[tacky.Constant | None, tacky.Label]] = []
         for idx, instr in enumerate(instrs):
-            match instr:
-                case tacky.SwitchCasePlaceholder():
-                    assert isinstance(instr.value, tacky.Constant | None)
-                    label = str(instr.value.value) if instr.value is not None else "__default__"
-                    label = tacky.Label(make_label_name(f"__switch__.{label}"))
-                    values_and_labels.append((instr.value, label))
-                    instrs[idx] = label
-                case tacky.Jump() if "__break__" in instr.label:
-                    instrs[idx] = tacky.Jump(break_.label)
+            if isinstance(instr, tacky.SwitchCasePlaceholder):
+                assert isinstance(instr.value, tacky.Constant | None)
+                label = str(instr.value.value) if instr.value is not None else "__default__"
+                label = tacky.Label(make_label_name(f"__switch__.{label}"))
+                values_and_labels.append((instr.value, label))
+                instrs[idx] = label
 
         for case_value, case_label in values_and_labels:
             if case_value is not None:
