@@ -383,7 +383,7 @@ def test_missing_const_2() -> None:
         _ = Parser(tokens).parse()
         assert False, "didn't fail successfully"
     except ParserError as e:
-        assert str(e) == "expected an expression, found Semicolon() @ 3:11"
+        assert str(e) == "expected an expression, found Semicolon() @ 3:18"
 
 
 def test_missing_first_op_2() -> None:
