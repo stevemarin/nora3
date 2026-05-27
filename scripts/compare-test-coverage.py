@@ -13,7 +13,7 @@ files = glob("./tests/test_*.py")
 for filename in files:
     with open(filename, "r") as fh:
         content = re.sub(r"\s+", " ", fh.read())
-    
+
     intro = "path = os.path.join"
     while (idx := content.find(intro)) != -1:
         assert content[idx + len(intro)] == "("
@@ -21,13 +21,19 @@ for filename in files:
         length = 0
         while content[idx + length] != ")":
             length += 1
-        
+
         assert content[idx + length] == ")"
 
-        parts = content[idx + len(intro) + 1: idx + length].replace("TEST_DIR", "tests").replace('"', "").replace(" ", "").split(",")
+        parts = (
+            content[idx + len(intro) + 1 : idx + length]
+            .replace("TEST_DIR", "tests")
+            .replace('"', "")
+            .replace(" ", "")
+            .split(",")
+        )
         path = os.path.join(*parts)
         test_functions.append(path)
-        content = content[idx + len(intro) + length - 1:]
+        content = content[idx + len(intro) + length - 1 :]
 
 test_files = []
 for root, dirs, filenames in os.walk("tests"):
@@ -36,6 +42,6 @@ for root, dirs, filenames in os.walk("tests"):
     for filename in filenames:
         path = os.path.join(root, filename)
         test_files.append(path)
-    
+
 for missing in sorted(set(test_files) - set(test_functions)):
     print(missing)
