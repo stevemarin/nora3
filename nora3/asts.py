@@ -963,8 +963,11 @@ class Continue(Stmt):
         return self
 
     def resolve_loop_labels(self, labels: list[str], function_name: str) -> "Continue":
-        if len(labels) == 0:
-            raise ResolverError("continue statement outside of loop")
+        for label in labels:
+            if ".__switch__" not in label:
+                break
+        else:
+            raise ResolverError("cannot have continue statement outside of a loop")
 
         label = None
         for idx in range(len(labels)):
@@ -1274,6 +1277,12 @@ class Case(Stmt):
         return Case(self.value, body)
 
     def resolve_loop_labels(self, labels: list[str], function_name: str) -> "Case":
+        for label in labels:
+            if ".__switch__" in label:
+                break
+        else:
+            raise ResolverError("cannot have case statement outside of a switch")
+
         body = self.body.resolve_loop_labels(labels, function_name)
         return Case(self.value, body)
 
@@ -1306,6 +1315,12 @@ class Default(Stmt):
         return Default(body)
 
     def resolve_loop_labels(self, labels: list[str], function_name: str) -> "Default":
+        for label in labels:
+            if ".__switch__" in label:
+                break
+        else:
+            raise ResolverError("cannot have default statement outside of a switch")
+
         body = self.body.resolve_loop_labels(labels, function_name)
         return Default(body)
 

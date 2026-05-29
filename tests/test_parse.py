@@ -802,17 +802,17 @@ def test_kw_label() -> None:
         assert str(e) == "expected an expression, found Colon() @ 2:10"
 
 
-# def test_label_declaration() -> None:
-#     path = os.path.join(TEST_DIR, "chapter_06", "invalid_parse", "extra_credit", "label_declaration.c")
-#     with open(path, "r") as fh:
-#         src = fh.read()
-#     tokens = Lexer(src).lex()
+def test_label_declaration() -> None:
+    path = os.path.join(TEST_DIR, "chapter_06", "invalid_parse", "extra_credit", "label_declaration.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
 
-#     try:
-#         _ = Parser(tokens).parse()
-#         assert False, "didn't fail successfully"
-#     except TokenTypeError as e:
-#         assert str(e) == "expected Identifier, got Semicolon() @ 2:9"
+    try:
+        _ = Parser(tokens).parse()
+        assert False, "didn't fail successfully"
+    except ParserError as e:
+        assert str(e) == "expected an expression, found Int() @ 4:4"
 
 
 def test_label_expression_clause() -> None:
@@ -843,18 +843,18 @@ def test_label_outside_function() -> None:
     #     assert str(e) == "expected Int, got Identifier(label) @ 1:5"
 
 
-# def test_label_without_statement() -> None:
-#     path = os.path.join(TEST_DIR, "chapter_06", "invalid_parse", "extra_credit", "label_without_statement.c")
-#     with open(path, "r") as fh:
-#         src = fh.read()
-#     tokens = Lexer(src).lex()
+def test_label_without_statement() -> None:
+    path = os.path.join(TEST_DIR, "chapter_06", "invalid_parse", "extra_credit", "label_without_statement.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
 
 
-#     try:
-#         _ = Parser(tokens).parse()
-#         assert False, "didn't fail successfully"
-#     except TokenTypeError as e:
-#         assert str(e) == "expected Int, got Identifier(label) @ 1:5"
+    try:
+        _ = Parser(tokens).parse()
+        assert False, "didn't fail successfully"
+    except ParserError as e:
+        assert str(e) == "expected an expression, found RightBrace() @ 4:0"
 
 
 def test_parenthesized_label() -> None:
@@ -1014,6 +1014,30 @@ def test_missing_for_header_clause() -> None:
     except ParserError as e:
         assert str(e) == "expected an expression, found RightParen() @ 2:19"
 
+def test_missing_for_header_clauses() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_parse", "missing_for_header_clauses.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+
+    try:
+        _ = Parser(tokens).parse()
+        assert False, "didn't fail successfully"
+    except TokenTypeError as e:
+        assert str(e) == "expected Semicolon, got RightParen() @ 2:20"
+
+def test_missing_for_header_semicolon() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_parse", "missing_for_header_semicolon.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+
+    try:
+        _ = Parser(tokens).parse()
+        assert False, "didn't fail successfully"
+    except TokenTypeError as e:
+        assert str(e) == "expected Semicolon, got RightParen() @ 2:27"
+
 
 def test_paren_mismatch() -> None:
     path = os.path.join(TEST_DIR, "chapter_08", "invalid_parse", "paren_mismatch.c")
@@ -1052,6 +1076,102 @@ def test_while_missing_paren() -> None:
         assert False, "didn't fail successfully"
     except TokenTypeError as e:
         assert str(e) == "expected LeftParen, got LiteralInt(1) @ 2:11"
+
+def test_compound_assignment_invalid_decl() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_parse", "extra_credit", "compound_assignment_invalid_decl.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+
+    try:
+        _ = Parser(tokens).parse()
+        assert False, "didn't fail successfully"
+    except TokenTypeError as e:
+        assert str(e) == "expected Semicolon or Equal, got PlusEqual() @ 2:17"
+
+def test_label_in_loop_header() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_parse", "extra_credit", "label_in_loop_header.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+
+    try:
+        _ = Parser(tokens).parse()
+        assert False, "didn't fail successfully"
+    except TokenTypeError as e:
+        assert str(e) == "expected Semicolon, got Colon() @ 2:26"
+
+def test_label_is_not_block() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_parse", "extra_credit", "label_is_not_block.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+
+    try:
+        _ = Parser(tokens).parse()
+        assert False, "didn't fail successfully"
+    except TokenTypeError as e:
+        assert str(e) == "expected While, got Identifier(b) @ 9:9"
+
+def test_switch_case_declaration() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_parse", "extra_credit", "switch_case_declaration.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+
+    try:
+        _ = Parser(tokens).parse()
+        assert False, "didn't fail successfully"
+    except ParserError as e:
+        assert str(e) == "expected an expression, found Int() @ 8:12"
+
+def test_switch_goto_case() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_parse", "extra_credit", "switch_goto_case.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+
+    try:
+        _ = Parser(tokens).parse()
+        assert False, "didn't fail successfully"
+    except TokenTypeError as e:
+        assert str(e) == "expected Identifier, got LiteralInt(3) @ 2:10"
+
+def test_switch_missing_case_value() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_parse", "extra_credit", "switch_missing_case_value.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+
+    try:
+        _ = Parser(tokens).parse()
+        assert False, "didn't fail successfully"
+    except ParserError as e:
+        assert str(e) == "expected an expression, found Colon() @ 3:12"
+
+def test_switch_missing_paren() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_parse", "extra_credit", "switch_missing_paren.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+
+    try:
+        _ = Parser(tokens).parse()
+        assert False, "didn't fail successfully"
+    except TokenTypeError as e:
+        assert str(e) == "expected LeftParen, got LiteralInt(3) @ 2:12"
+
+def test_switch_no_condition() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_parse", "extra_credit", "switch_no_condition.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+
+    try:
+        _ = Parser(tokens).parse()
+        assert False, "didn't fail successfully"
+    except TokenTypeError as e:
+        assert str(e) == "expected LeftParen, got LeftBrace() @ 2:12"
 
 
 def test_call_non_identifier() -> None:
