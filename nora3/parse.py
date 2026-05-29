@@ -257,13 +257,15 @@ class Parser:
             return expr
 
     def case(self) -> asts.Block:
-        stmts: list[asts.BlockItem] = []
+        # similar to a label, in c17 must be followed first by a stmt
+        # an then block items (assignments cannot immediagely follow a label)
+        stmts: list[asts.BlockItem] = [self.stmt()]
         while True:
             match type(self.peek().tokentype):
                 case tok.RightBrace | tok.Default | tok.Case:
                     break
                 case _:
-                    stmts.append(self.stmt())
+                    stmts.append(self.block_item())
         return asts.Block(stmts)
 
     def stmt(self) -> asts.Stmt:
