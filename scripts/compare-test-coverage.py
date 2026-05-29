@@ -3,37 +3,48 @@
 # compares the tests that have functions written for them against
 # the invalid test files in the directory
 
-import os
 import os.path
-import re
+from io import TextIOWrapper
 from glob import glob
+
+intro = "path = os.path.join"
+
+
+def read_through_newline(fh: TextIOWrapper) -> None:
+    while fh.read(1) not in {"\n", ""}:
+        continue
+
+
+def maybe_read_path(fh: TextIOWrapper) -> str | None:
+    for value in intro[1:]:
+        ch = fh.read(1)
+        assert ch != ""
+        if value != ch:
+            return read_through_newline(fh)
+
+    buffer = ""
+    assert fh.read(1) == "("
+    while (ch := fh.read(1)) != ")":
+        if ch not in {" ", '"', "\n"}:
+            buffer += ch
+    assert ch == ")"
+    return os.path.join("tests", *buffer.split(",")[1:])
+
 
 test_functions = []
 files = glob("./tests/test_*.py")
 for filename in files:
     with open(filename, "r") as fh:
-        content = re.sub(r"\s+", " ", fh.read())
-
-    intro = "path = os.path.join"
-    while (idx := content.find(intro)) != -1:
-        assert content[idx + len(intro)] == "("
-
-        length = 0
-        while content[idx + length] != ")":
-            length += 1
-
-        assert content[idx + length] == ")"
-
-        parts = (
-            content[idx + len(intro) + 1 : idx + length]
-            .replace("TEST_DIR", "tests")
-            .replace('"', "")
-            .replace(" ", "")
-            .split(",")
-        )
-        path = os.path.join(*parts)
-        test_functions.append(path)
-        content = content[idx + len(intro) + length - 1 :]
+        while (ch := fh.read(1)) != "":
+            match ch:
+                case "#":
+                    read_through_newline(fh)
+                case "p":
+                    path = maybe_read_path(fh)
+                    if path is not None:
+                        test_functions.append(path)
+                case _:
+                    continue
 
 test_files = []
 for root, dirs, filenames in os.walk("tests"):
