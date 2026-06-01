@@ -635,7 +635,7 @@ def test_duplicate_case_in_labeled_switch() -> None:
         _ = ast.resolve()
         assert False, "didn't fail successfully"
     except ResolverError as e:
-        assert str(e) == "duplicate cases: .__switch__.__case__.Constant(1)"
+        assert str(e) == "duplicate cases in switch: Constant(1)"
 
 def test_duplicate_case_in_nested_statement() -> None:
     path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "duplicate_case_in_nested_statement.c")
@@ -648,7 +648,7 @@ def test_duplicate_case_in_nested_statement() -> None:
         _ = ast.resolve()
         assert False, "didn't fail successfully"
     except ResolverError as e:
-        assert str(e) == "duplicate cases: .__switch__.__case__.Constant(1)"
+        assert str(e) == "duplicate cases in switch: Constant(1)"
 
 def test_out_of_scope_loop_variable() -> None:
     path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "out_of_scope_loop_variable.c")
