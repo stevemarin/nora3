@@ -256,6 +256,18 @@ class Parser:
             _ = self.eat(tok.Semicolon)
             return expr
 
+    def case(self) -> asts.Block:
+        # similar to a label, in c17 must be followed first by a stmt
+        # an then block items (assignments cannot immediagely follow a label)
+        stmts: list[asts.BlockItem] = [self.stmt()]
+        while True:
+            match type(self.peek().tokentype):
+                case tok.RightBrace | tok.Default | tok.Case:
+                    break
+                case _:
+                    stmts.append(self.block_item())
+        return asts.Block(stmts)
+
     def stmt(self) -> asts.Stmt:
         match type(self.peek().tokentype):
             case tok.Return:
@@ -286,7 +298,8 @@ class Parser:
             case tok.Identifier if self.peek2(tok.Colon):
                 name = self.eat(tok.Identifier).tokentype.value
                 _ = self.eat(tok.Colon)
-                return asts.Label(name)
+                stmt = self.stmt()
+                return asts.Label(name, stmt)
             case tok.LeftBrace:
                 _ = self.eat(tok.LeftBrace)
                 items = []
@@ -330,7 +343,23 @@ class Parser:
                 body = self.stmt()
                 return asts.For(init, maybe_cond, maybe_post, body)
             case tok.Switch:
-                raise NotImplementedError("no switch yet")
+                _ = self.eat(tok.Switch)
+                _ = self.eat(tok.LeftParen)
+                cond = self.expr()
+                _ = self.eat(tok.RightParen)
+                body = self.stmt()
+                return asts.Switch(cond, body)
+            case tok.Case:
+                _ = self.eat(tok.Case)
+                value = self.expr()
+                _ = self.eat(tok.Colon)
+                body = self.case()
+                return asts.Case(value, body)
+            case tok.Default:
+                _ = self.eat(tok.Default)
+                _ = self.eat(tok.Colon)
+                body = self.stmt()
+                return asts.Default(body)
             case _:
                 stmt = asts.Expression(self.expr())
                 _ = self.eat(tok.Semicolon)
@@ -353,74 +382,3 @@ class Parser:
 
     def parse(self) -> asts.Program:
         return self.program()
-
-
-if __name__ == "__main__":
-    from nora3.lex import Lexer
-
-    src = """
-int f(void) {
-    static int i = 0;
-    static int j = 0;
-    static int k = 1;
-    static int l = 48;
-    i += 1;
-    j -= i;
-    k *= j;
-    l /= 2;
-
-    // expected values after 3 invocations:
-    // i = 3
-    // j = -6
-    // k = -18
-    // l = 6
-    if (i != 1) {
-        return 1;
-    }
-    if (j != -6) {
-        return 2;
-    }
-    if (k != -18) {
-        return 3;
-    }
-    if (l != 6) {
-        return 4;
-    }
-    return 0;
-}
-
-int main(void) {
-    f();
-    f();
-    return f();
-}
-"""
-    pseudo: dict[str, int] = {}
-
-    tokens = Lexer(src).lex()
-    print("tokens:")
-    for t in tokens:
-        print("    ", t)
-
-    ast = Parser(tokens).parse()
-    print(ast)
-
-    ast = ast.resolve()
-    print("ast", repr(ast))
-
-    ir = ast.to_tacky()
-    print("ir", repr(ir))
-
-    ass = ir.to_asm()
-    print("ass", repr(ass))
-
-    ass.replace_pseudo(0, pseudo)
-    print("psuedo", repr(ass))
-
-    ass = ass.fix_instructions()
-    print("fix", repr(ass))
-
-    code = ass.codegen()
-
-    print(pseudo)
-    print(code)

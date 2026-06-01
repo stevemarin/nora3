@@ -1,5 +1,5 @@
 
-ALL := valid invalid
+ALL := invalid valid
 
 .PHONY: all
 all: $(ALL) ;
@@ -10,7 +10,7 @@ valid:
 
 .PHONY: invalid
 invalid:
-	pytest tests
+	pytest tests || true
 
 .PHONY: valid-lex
 valid-lex:

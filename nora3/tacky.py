@@ -50,7 +50,7 @@ class Variable(Value):
         return asm.Pseudo(self.name)
 
 
-class Instruction(Emitter): ...
+class Instruction(Emitter[asm.Instruction, None]): ...
 
 
 class Return(Instruction):
@@ -396,6 +396,20 @@ class FuncCall(Instruction):
         instructions.append(asm.Mov(asm.Ax(4), asm_dst))
 
 
+class SwitchCasePlaceholder(Instruction):
+    def __init__(self, value: Value | None = None) -> None:
+        self.value = value
+
+    def __repr__(self) -> str:
+        if self.value is None:
+            return "DefaultSwitchCasePlaceholder"
+        else:
+            return f"SwitchCasePlaceholder|{self.value}|"
+
+    def emit(self, instructions: list[asm.Instruction]) -> None:
+        raise NotImplementedError
+
+
 class TopLevel(ToAsm):
     def __init__(self, name: str, globl: bool):
         self.name = name
@@ -450,10 +464,3 @@ class Program(ToAsm):
 
     def to_asm(self) -> asm.Program:
         return asm.Program([func.to_asm() for func in self.top_level], self.symbol_table)
-
-
-if __name__ == "__main__":
-    instructions: list[asm.Instruction] = []
-    c = Negate(Constant(3), Variable("aaa"))
-    c.emit(instructions)
-    print(instructions)

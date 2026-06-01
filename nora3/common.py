@@ -27,7 +27,7 @@ class MappingHolder[KT, VT]:
 
 
 def Unreachable() -> Never:
-    assert False, "unreachable"
+    raise Exception("unreachable")
 
 
 Instr = TypeVar("Instr")

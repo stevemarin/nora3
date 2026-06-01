@@ -48,7 +48,7 @@ class MapEntry:
 class Resolver(Protocol):
     def resolve_identifiers(self, identifier_map: dict[str, MapEntry], inside_func: bool) -> Self: ...
     def resolve_goto_labels(self, labels: dict[str, bool], function_name: str) -> Self: ...
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> Self: ...
+    def resolve_loop_labels(self, labels: list[str], function_name: str, switch_context: set[str] | None) -> Self: ...
 
     def mangle_label(self, label: str, function_name: str) -> str:
         return f".label.{function_name}.{label}"
@@ -61,11 +61,11 @@ class TypeChecker(Protocol):
     def typecheck(self, symbol_table: SymbolTable, file_scope: bool) -> None: ...
 
 
-class Expr(Emitter, Resolver, TypeChecker):
+class Expr(Emitter[tacky.Instruction, tacky.Value], Resolver, TypeChecker):
     def resolve_goto_labels(self, labels: dict[str, bool], function_name: str) -> Self:
         raise NotImplementedError("cannot resolve goto labels for expressions")
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> Self:
+    def resolve_loop_labels(self, labels: list[str], function_name: str, switch_context: set[str] | None) -> Self:
         raise NotImplementedError("cannot resolve loop labels for expressions")
 
 
@@ -347,6 +347,12 @@ class Conditional(Binary, tokentype=tok.Question(), precedence=3):
         super().__init__(left, right)
         self.middle = middle
 
+    def __repr__(self) -> str:
+        left = repr(self.left)
+        middle = repr(self.middle)
+        right = repr(self.right)
+        return f"{self.__class__.__name__}({left} ? {middle} : {right})"
+
     def resolve_identifiers(self, identifier_map: dict[str, MapEntry], inside_func: bool) -> "Conditional":
         left = self.left.resolve_identifiers(identifier_map, inside_func)
         middle = self.middle.resolve_identifiers(identifier_map, inside_func)
@@ -400,7 +406,7 @@ class FuncCall(Expr):
             return FuncCall(unique_name.name, unique_args)
         raise ResolverError(f"undeclared function: {self.name}")
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> Self:
+    def resolve_loop_labels(self, labels: list[str], function_name: str, switch_context: set[str] | None) -> Self:
         return self
 
     def emit(self, instructions: list[tacky.Instruction]) -> tacky.Value:
@@ -490,7 +496,7 @@ class VarDecl(Declaration):
     def resolve_goto_labels(self, labels: dict[str, bool], function_name: str) -> Self:
         return self
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> Self:
+    def resolve_loop_labels(self, labels: list[str], function_name: str, switch_context: set[str] | None) -> Self:
         return self
 
     def typecheck_file_scope(self, symbol_table: SymbolTable, file_scope: bool) -> None:
@@ -643,8 +649,8 @@ class FuncDecl(Declaration):
 
         return FuncDecl(self.name, self.params, body, self.type_, self.storage_class)
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> "FuncDecl":
-        body = None if self.body is None else self.body.resolve_loop_labels(current_label, self.name)
+    def resolve_loop_labels(self, labels: list[str], function_name: str, switch_context: set[str] | None) -> "FuncDecl":
+        body = None if self.body is None else self.body.resolve_loop_labels(labels, self.name, switch_context)
         return FuncDecl(self.name, self.params, body, self.type_, self.storage_class)
 
     def typecheck(self, symbol_table: SymbolTable, file_scope: bool) -> None:
@@ -659,7 +665,9 @@ class FuncDecl(Declaration):
             if not isinstance(old_decl, FuncType):
                 raise TypeCheckerError(f"incompatible function declarations for: {self.name}")
             elif len(old_decl.params) != len(params):
-                raise TypeCheckerError(f"function {self.name} redefined from {len(old_decl.params)} to {len(params)} parameters")
+                raise TypeCheckerError(
+                    f"function {self.name} redefined from {len(old_decl.params)} to {len(params)} parameters"
+                )
             elif old_decl.params != params:
                 old_params = " ".join(map(repr, old_decl.params))
                 new_params = " ".join(map(repr, params))
@@ -713,8 +721,8 @@ class Block(Stmt):
     def resolve_goto_labels(self, labels: dict[str, bool], function_name: str) -> "Block":
         return Block([item.resolve_goto_labels(labels, function_name) for item in self.items])
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> "Block":
-        items = [item.resolve_loop_labels(current_label, function_name) for item in self.items]
+    def resolve_loop_labels(self, labels: list[str], function_name: str, switch_context: set[str] | None) -> "Block":
+        items = [item.resolve_loop_labels(labels, function_name, switch_context) for item in self.items]
         return Block(items)
 
     def typecheck(self, symbol_table: SymbolTable, file_scope: bool) -> None:
@@ -741,7 +749,7 @@ class Return(Stmt):
     def resolve_goto_labels(self, labels: dict[str, bool], function_name: str) -> Self:
         return self
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> Self:
+    def resolve_loop_labels(self, labels: list[str], function_name: str, switch_context: set[str] | None) -> Self:
         return self
 
     def typecheck(self, symbol_table: SymbolTable, file_scope: bool) -> None:
@@ -765,7 +773,7 @@ class Expression(Stmt):
     def resolve_goto_labels(self, labels: dict[str, bool], function_name: str) -> Self:
         return self
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> Self:
+    def resolve_loop_labels(self, labels: list[str], function_name: str, switch_context: set[str] | None) -> Self:
         return self
 
     def typecheck(self, symbol_table: SymbolTable, file_scope: bool) -> None:
@@ -812,9 +820,9 @@ class If(Stmt):
         else_ = None if self.else_ is None else self.else_.resolve_goto_labels(labels, function_name)
         return If(self.cond, then, else_)
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> "If":
-        then = self.then.resolve_loop_labels(current_label, function_name)
-        else_ = None if self.else_ is None else self.else_.resolve_loop_labels(current_label, function_name)
+    def resolve_loop_labels(self, labels: list[str], function_name: str, switch_context: set[str] | None) -> "If":
+        then = self.then.resolve_loop_labels(labels, function_name, switch_context)
+        else_ = None if self.else_ is None else self.else_.resolve_loop_labels(labels, function_name, switch_context)
         return If(self.cond, then, else_)
 
     def typecheck(self, symbol_table: SymbolTable, file_scope: bool) -> None:
@@ -824,18 +832,21 @@ class If(Stmt):
 
 
 class Label(Stmt):
-    def __init__(self, name: str) -> None:
+    def __init__(self, name: str, stmt: Stmt) -> None:
         self.name = name
+        self.stmt = stmt
 
     def __repr__(self) -> str:
         return f"Label({self.name})"
 
     def emit(self, instructions: list[tacky.Instruction]) -> tacky.Value:
         instructions.append(tacky.Label(self.name))
+        _ = self.stmt.emit(instructions)
         return tacky.Null()
 
-    def resolve_identifiers(self, identifier_map: dict[str, MapEntry], inside_func: bool) -> Self:
-        return self
+    def resolve_identifiers(self, identifier_map: dict[str, MapEntry], inside_func: bool) -> "Label":
+        stmt = self.stmt.resolve_identifiers(identifier_map, inside_func)
+        return Label(self.name, stmt)
 
     def resolve_goto_labels(self, labels: dict[str, bool], function_name: str) -> "Label":
         name = self.mangle_label(self.name, function_name)
@@ -845,13 +856,16 @@ class Label(Stmt):
         else:
             labels[name] = True
 
-        return Label(name)
+        stmt = self.stmt.resolve_goto_labels(labels, function_name)
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> Self:
-        return self
+        return Label(name, stmt)
+
+    def resolve_loop_labels(self, labels: list[str], function_name: str, switch_context: set[str] | None) -> "Label":
+        stmt = self.stmt.resolve_loop_labels(labels, function_name, switch_context)
+        return Label(self.name, stmt)
 
     def typecheck(self, symbol_table: SymbolTable, file_scope: bool) -> None:
-        pass
+        self.stmt.typecheck(symbol_table, file_scope)
 
 
 class Goto(Stmt):
@@ -875,7 +889,7 @@ class Goto(Stmt):
 
         return Goto(name)
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> Self:
+    def resolve_loop_labels(self, labels: list[str], function_name: str, switch_context: set[str] | None) -> Self:
         return self
 
     def typecheck(self, symbol_table: SymbolTable, file_scope: bool) -> None:
@@ -899,8 +913,8 @@ class Compound(Stmt):
     def resolve_goto_labels(self, labels: dict[str, bool], function_name: str) -> "Compound":
         return Compound(self.block.resolve_goto_labels(labels, function_name))
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> "Compound":
-        return Compound(self.block.resolve_loop_labels(current_label, function_name))
+    def resolve_loop_labels(self, labels: list[str], function_name: str, switch_context: set[str] | None) -> "Compound":
+        return Compound(self.block.resolve_loop_labels(labels, function_name, switch_context))
 
     def typecheck(self, symbol_table: SymbolTable, file_scope: bool) -> None:
         self.block.typecheck(symbol_table, file_scope)
@@ -920,10 +934,10 @@ class Break(Stmt):
     def resolve_goto_labels(self, labels: dict[str, bool], function_name: str) -> Self:
         return self
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> "Break":
-        if current_label is None:
+    def resolve_loop_labels(self, labels: list[str], function_name: str, switch_context: set[str] | None) -> "Break":
+        if len(labels) == 0:
             raise ResolverError("break statement outside of loop")
-        return Break(current_label)
+        return Break(labels[-1])
 
     def emit(self, instructions: list[tacky.Instruction]) -> tacky.Value:
         assert self.label is not None
@@ -948,10 +962,23 @@ class Continue(Stmt):
     def resolve_goto_labels(self, labels: dict[str, bool], function_name: str) -> Self:
         return self
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> "Continue":
-        if current_label is None:
-            raise ResolverError("continue statement outside of loop")
-        return Continue(current_label)
+    def resolve_loop_labels(self, labels: list[str], function_name: str, switch_context: set[str] | None) -> "Continue":
+        for label in labels:
+            if ".__switch__" not in label:
+                break
+        else:
+            raise ResolverError("cannot have continue statement outside of a loop")
+
+        label = None
+        for idx in range(len(labels)):
+            label = labels[-(idx + 1)]
+            if ".__switch__" in label:
+                continue
+            else:
+                break
+
+        assert label is not None
+        return Continue(label)
 
     def emit(self, instructions: list[tacky.Instruction]) -> tacky.Value:
         assert self.label is not None
@@ -963,17 +990,17 @@ class Continue(Stmt):
 
 
 class While(Stmt):
-    def __init__(self, cond: Expr, body: Stmt, label: str | None = None) -> None:
+    def __init__(self, cond: Expr, body: Stmt, labels: list[str] = []) -> None:
         self.cond = cond
         self.body = body
-        self.label = label
+        self.labels = labels
 
     def __repr__(self) -> str:
         cond = repr(self.cond)
         body = repr(self.body)
 
         return f"""
-        While|{self.label}| ({cond})
+        While|{self.labels[-1]}| ({cond})
           {body.replace("\n", "\n        ")}
         ) """.strip()
 
@@ -986,15 +1013,16 @@ class While(Stmt):
         body = self.body.resolve_goto_labels(labels, function_name)
         return While(self.cond, body)
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> "While":
-        current_label = make_label_name(f"while.{function_name}")
-        body = self.body.resolve_loop_labels(current_label, function_name)
-        return While(self.cond, body, current_label)
+    def resolve_loop_labels(self, labels: list[str], function_name: str, switch_context: set[str] | None) -> "While":
+        current_labels = labels + [make_label_name(f"while.{function_name}")]
+        body = self.body.resolve_loop_labels(current_labels, function_name, switch_context)
+        return While(self.cond, body, current_labels)
 
     def emit(self, instructions: list[tacky.Instruction]) -> tacky.Value:
-        assert self.label is not None
-        continue_ = tacky.Label(f"__continue__{self.label}")
-        break_ = tacky.Label(f"__break__{self.label}")
+        assert len(self.labels) > 0
+        curent_label = self.labels[-1]
+        continue_ = tacky.Label(f"__continue__{curent_label}")
+        break_ = tacky.Label(f"__break__{curent_label}")
 
         instructions.append(continue_)
         dst = self.cond.emit(instructions)
@@ -1015,17 +1043,17 @@ class While(Stmt):
 
 
 class DoWhile(Stmt):
-    def __init__(self, cond: Expr, body: Stmt, label: str | None = None) -> None:
+    def __init__(self, cond: Expr, body: Stmt, labels: list[str] = []) -> None:
         self.cond = cond
         self.body = body
-        self.label = label
+        self.labels = labels
 
     def __repr__(self) -> str:
         cond = repr(self.cond)
         body = repr(self.body)
 
         return f"""
-        Do|{self.label}| (
+        Do|{self.labels[-1]}| (
           {body.replace("\n", "\n        ")}
         ) While ({cond})""".strip()
 
@@ -1038,16 +1066,17 @@ class DoWhile(Stmt):
         body = self.body.resolve_goto_labels(labels, function_name)
         return DoWhile(self.cond, body)
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> "DoWhile":
-        current_label = make_label_name(f"dowhile.{function_name}")
-        body = self.body.resolve_loop_labels(current_label, function_name)
-        return DoWhile(self.cond, body, current_label)
+    def resolve_loop_labels(self, labels: list[str], function_name: str, switch_context: set[str] | None) -> "DoWhile":
+        current_labels = labels + [make_label_name(f"dowhile.{function_name}")]
+        body = self.body.resolve_loop_labels(current_labels, function_name, switch_context)
+        return DoWhile(self.cond, body, current_labels)
 
     def emit(self, instructions: list[tacky.Instruction]) -> tacky.Value:
-        assert self.label is not None
-        start = tacky.Label(f"__start__{self.label}")
-        continue_ = tacky.Label(f"__continue__{self.label}")
-        break_ = tacky.Label(f"__break__{self.label}")
+        assert len(self.labels) > 0
+        current_label = self.labels[-1]
+        start = tacky.Label(f"__start__{current_label}")
+        continue_ = tacky.Label(f"__continue__{current_label}")
+        break_ = tacky.Label(f"__break__{current_label}")
 
         instructions.append(start)
         _ = self.body.emit(instructions)
@@ -1073,22 +1102,23 @@ class For(Stmt):
         cond: Expr | None,
         post: Expr | None,
         body: Stmt,
-        label: str | None = None,
+        labels: list[str] = [],
     ) -> None:
         self.init = init
         self.cond = cond
         self.post = post
         self.body = body
-        self.label = label
+        self.labels = labels
 
     def __repr__(self) -> str:
         init = None if self.init is None else repr(self.init)
         cond = None if self.cond is None else repr(self.cond)
         post = None if self.post is None else repr(self.post)
+        labels = self.labels[-1] if len(self.labels) > 0 else ""
         body = repr(self.body)
 
         return f"""
-        For|{self.label}| (
+        For|{labels}| (
           init = {init}
           cond = {cond}
           post = {post}
@@ -1107,16 +1137,17 @@ class For(Stmt):
         body = self.body.resolve_goto_labels(labels, function_name)
         return For(self.init, self.cond, self.post, body)
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> "For":
-        current_label = make_label_name(f"for.{function_name}")
-        body = self.body.resolve_loop_labels(current_label, function_name)
-        return For(self.init, self.cond, self.post, body, current_label)
+    def resolve_loop_labels(self, labels: list[str], function_name: str, switch_context: set[str] | None) -> "For":
+        current_labels = labels + [make_label_name(f"for.{function_name}")]
+        body = self.body.resolve_loop_labels(current_labels, function_name, switch_context)
+        return For(self.init, self.cond, self.post, body, current_labels)
 
     def emit(self, instructions: list[tacky.Instruction]) -> tacky.Value:
-        assert self.label is not None
-        start = tacky.Label(f"__start__{self.label}")
-        continue_ = tacky.Label(f"__continue__{self.label}")
-        break_ = tacky.Label(f"__break__{self.label}")
+        assert len(self.labels) > 0
+        current_label = self.labels[-1]
+        start = tacky.Label(f"__start__{current_label}")
+        continue_ = tacky.Label(f"__continue__{current_label}")
+        break_ = tacky.Label(f"__break__{current_label}")
 
         if self.init is not None:
             _ = self.init.emit(instructions)
@@ -1150,6 +1181,157 @@ class For(Stmt):
         self.post.typecheck(symbol_table, file_scope) if self.post is not None else ...
 
 
+class Switch(Stmt):
+    def __init__(self, condition: Expr, body: Stmt, labels: list[str] = []) -> None:
+        self.condition = condition
+        self.body = body
+        self.labels = labels
+
+    def __repr__(self) -> str:
+        return f"""
+        Switch|{self.condition}|
+            {repr(self.body).replace("\n", "\n        ")}
+        """.strip()
+
+    def typecheck(self, symbol_table: dict[str, IntType | FuncType], file_scope: bool) -> None:
+        self.condition.typecheck(symbol_table, file_scope)
+        self.body.typecheck(symbol_table, file_scope)
+
+    def resolve_identifiers(self, identifier_map: dict[str, MapEntry], inside_func: bool) -> "Switch":
+        new_identifier_map = self.copy_variable_map(identifier_map)
+        condition = self.condition.resolve_identifiers(new_identifier_map, inside_func)
+        body = self.body.resolve_identifiers(new_identifier_map, inside_func)
+        return Switch(condition, body)
+
+    def resolve_goto_labels(self, labels: dict[str, bool], function_name: str) -> "Switch":
+        body = self.body.resolve_goto_labels(labels, function_name)
+        return Switch(self.condition, body)
+
+    def resolve_loop_labels(self, labels: list[str], function_name: str, switch_context: set[str] | None) -> "Switch":
+        current_labels = labels + [make_label_name(f"__switch__.{function_name}")]
+        body = self.body.resolve_loop_labels(current_labels, function_name, set())
+        return Switch(self.condition, body, current_labels)
+
+    def emit(self, instructions: list[tacky.Instruction]) -> tacky.Value:
+
+        cond_dst = self.condition.emit(instructions)
+
+        instrs: list[tacky.Instruction] = []
+        _ = self.body.emit(instrs)
+
+        assert len(self.labels) > 0
+        break_ = tacky.Label(f"__break__{self.labels[-1]}")
+
+        values_and_labels: list[tuple[tacky.Constant | None, tacky.Label]] = []
+        for idx, instr in enumerate(instrs):
+            if isinstance(instr, tacky.SwitchCasePlaceholder):
+                assert isinstance(instr.value, tacky.Constant | None)
+                label = str(instr.value.value) if instr.value is not None else "__default__"
+                label = tacky.Label(make_label_name(f"__switch__.{label}"))
+                values_and_labels.append((instr.value, label))
+                instrs[idx] = label
+
+        for case_value, case_label in values_and_labels:
+            if case_value is not None:
+                dst = tacky.Variable(make_temp_variable_name())
+                instructions.extend(
+                    [
+                        tacky.NotEqual(cond_dst, case_value, dst),
+                        tacky.JumpIfZero(dst, case_label.label),
+                    ]
+                )
+            else:
+                instructions.append(tacky.Jump(case_label.label))
+
+        instructions.append(tacky.Jump(break_.label))
+        instructions.extend(instrs)
+        instructions.append(break_)
+
+        return tacky.Null()
+
+
+class Case(Stmt):
+    def __init__(self, value: Expr, body: Stmt) -> None:
+        self.value = value
+        self.body = body
+
+    def __repr__(self) -> str:
+        return f"""
+        Case|{self.value}|
+            {repr(self.body).replace("\n", "\n        ")}
+        """.strip()
+
+    def typecheck(self, symbol_table: dict[str, IntType | FuncType], file_scope: bool) -> None:
+        if not isinstance(self.value, Constant):
+            raise TypeCheckerError(f"case values must be constant, got: {self.value}")
+        self.value.typecheck(symbol_table, file_scope)
+        self.body.typecheck(symbol_table, file_scope)
+
+    def resolve_identifiers(self, identifier_map: dict[str, MapEntry], inside_func: bool) -> "Case":
+        value = self.value.resolve_identifiers(identifier_map, inside_func)
+        body = self.body.resolve_identifiers(identifier_map, inside_func)
+        return Case(value, body)
+
+    def resolve_goto_labels(self, labels: dict[str, bool], function_name: str) -> "Case":
+        body = self.body.resolve_goto_labels(labels, function_name)
+        return Case(self.value, body)
+
+    def resolve_loop_labels(self, labels: list[str], function_name: str, switch_context: set[str] | None) -> "Case":
+        if switch_context is None:
+            raise ResolverError("cannot have case statement outside of a switch")
+        elif (value_str := str(self.value)) in switch_context:
+            raise ResolverError(f"duplicate cases in switch: {value_str}")
+        else:
+            switch_context.add(value_str)
+
+        body = self.body.resolve_loop_labels(labels, function_name, switch_context)
+        return Case(self.value, body)
+
+    def emit(self, instructions: list[tacky.Instruction]) -> object:
+        value = self.value.emit(instructions)
+        instructions.append(tacky.SwitchCasePlaceholder(value))
+        self.body.emit(instructions)
+        return tacky.Null()
+
+
+class Default(Stmt):
+    def __init__(self, body: Stmt) -> None:
+        self.body = body
+
+    def __repr__(self) -> str:
+        return f"""
+        Default||
+            {repr(self.body).replace("\n", "\n        ")}
+        """.strip()
+
+    def typecheck(self, symbol_table: dict[str, IntType | FuncType], file_scope: bool) -> None:
+        self.body.typecheck(symbol_table, file_scope)
+
+    def resolve_identifiers(self, identifier_map: dict[str, MapEntry], inside_func: bool) -> "Default":
+        body = self.body.resolve_identifiers(identifier_map, inside_func)
+        return Default(body)
+
+    def resolve_goto_labels(self, labels: dict[str, bool], function_name: str) -> "Default":
+        body = self.body.resolve_goto_labels(labels, function_name)
+        return Default(body)
+
+    def resolve_loop_labels(self, labels: list[str], function_name: str, switch_context: set[str] | None) -> "Default":
+        if switch_context is None:
+            raise ResolverError("cannot have default statement outside of a switch")
+        elif (value_str := "__default__") in switch_context:
+            raise ResolverError("duplicate defaults in switch")
+        else:
+            switch_context.add(value_str)
+
+        body = self.body.resolve_loop_labels(labels, function_name, switch_context)
+        return Default(body)
+
+    def emit(self, instructions: list[tacky.Instruction]) -> tacky.Value:
+        instructions.append(tacky.SwitchCasePlaceholder())
+        self.body.emit(instructions)
+        return tacky.Null()
+
+
 class Null(Stmt):
     def __init__(self):
         pass
@@ -1166,7 +1348,7 @@ class Null(Stmt):
     def resolve_goto_labels(self, labels: dict[str, bool], function_name: str) -> "Null":
         return Null()
 
-    def resolve_loop_labels(self, current_label: str | None, function_name: str) -> "Null":
+    def resolve_loop_labels(self, labels: list[str], function_name: str, switch_context: set[str] | None) -> "Null":
         return Null()
 
     def typecheck(self, symbol_table: SymbolTable, file_scope: bool) -> None:
@@ -1214,17 +1396,7 @@ class Program:
         for decl in self.decls:
             decl = decl.resolve_identifiers(identifier_map, False)
             decl = decl.resolve_goto_labels({}, decl.name)
-            decl = decl.resolve_loop_labels(None, decl.name)
+            decl = decl.resolve_loop_labels([], decl.name, None)
             decl.typecheck(self.symbol_table, True)
             decls.append(decl)
         return Program(decls, self.symbol_table)
-
-
-if __name__ == "__main__":
-    expr: Expr = Constant(3)
-    expr = Unary.from_tokentype(tok.Hyphen)(expr)
-    expr = Unary.from_tokentype(tok.Tilde)(expr)
-
-    instructions: list[tacky.Instruction] = []
-    print(expr.emit(instructions))
-    print(instructions)

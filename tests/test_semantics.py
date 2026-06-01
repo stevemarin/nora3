@@ -6,7 +6,7 @@ from nora3.asts import ResolverError, TypeCheckerError
 
 
 def test_declared_after_use() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_semantics", "declared_after_use.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_semantics", "declared_after_use.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -20,7 +20,7 @@ def test_declared_after_use() -> None:
 
 
 def test_invalid_lvalue() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_semantics", "invalid_lvalue.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_semantics", "invalid_lvalue.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -34,7 +34,7 @@ def test_invalid_lvalue() -> None:
 
 
 def test_invalid_lvalue_2() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_semantics", "invalid_lvalue_2.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_semantics", "invalid_lvalue_2.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -48,7 +48,7 @@ def test_invalid_lvalue_2() -> None:
 
 
 def test_mixed_precedence_assignment() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_semantics", "mixed_precedence_assignment.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_semantics", "mixed_precedence_assignment.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -62,7 +62,7 @@ def test_mixed_precedence_assignment() -> None:
 
 
 def test_redefine() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_semantics", "redefine.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_semantics", "redefine.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -76,7 +76,7 @@ def test_redefine() -> None:
 
 
 def test_undeclared_var_and() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_semantics", "undeclared_var_and.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_semantics", "undeclared_var_and.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -90,7 +90,7 @@ def test_undeclared_var_and() -> None:
 
 
 def test_undeclared_var_compare() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_semantics", "undeclared_var_compare.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_semantics", "undeclared_var_compare.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -104,7 +104,7 @@ def test_undeclared_var_compare() -> None:
 
 
 def test_undeclared_var_unary() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_semantics", "undeclared_var_unary.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_semantics", "undeclared_var_unary.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -118,7 +118,7 @@ def test_undeclared_var_unary() -> None:
 
 
 def test_undeclared_var() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_semantics", "undeclared_var.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_semantics", "undeclared_var.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -132,7 +132,7 @@ def test_undeclared_var() -> None:
 
 
 def test_use_then_redefine() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_semantics", "use_then_redefine.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_semantics", "use_then_redefine.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -146,7 +146,7 @@ def test_use_then_redefine() -> None:
 
 
 def test_compound_invalid_lvalue_2() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_semantics", "extra_credit", "compound_invalid_lvalue_2.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_semantics", "extra_credit", "compound_invalid_lvalue_2.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -160,7 +160,7 @@ def test_compound_invalid_lvalue_2() -> None:
 
 
 def test_compound_invalid_lvalue() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_semantics", "extra_credit", "compound_invalid_lvalue.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_semantics", "extra_credit", "compound_invalid_lvalue.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -174,7 +174,7 @@ def test_compound_invalid_lvalue() -> None:
 
 
 def test_postfix_decr_non_lvalue() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_semantics", "extra_credit", "postfix_decr_non_lvalue.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_semantics", "extra_credit", "postfix_decr_non_lvalue.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -187,7 +187,7 @@ def test_postfix_decr_non_lvalue() -> None:
 
 
 def test_postfix_incr_non_lvalue() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_semantics", "extra_credit", "postfix_incr_non_lvalue.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_semantics", "extra_credit", "postfix_incr_non_lvalue.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -201,7 +201,7 @@ def test_postfix_incr_non_lvalue() -> None:
 
 
 def test_prefix_decr_non_lvalue() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_semantics", "extra_credit", "prefix_decr_non_lvalue.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_semantics", "extra_credit", "prefix_decr_non_lvalue.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -215,7 +215,7 @@ def test_prefix_decr_non_lvalue() -> None:
 
 
 def test_prefix_incr_non_lvalue() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_semantics", "extra_credit", "prefix_incr_non_lvalue.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_semantics", "extra_credit", "prefix_incr_non_lvalue.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -229,7 +229,7 @@ def test_prefix_incr_non_lvalue() -> None:
 
 
 def test_pundeclared_bitwise_op() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_semantics", "extra_credit", "undeclared_bitwise_op.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_semantics", "extra_credit", "undeclared_bitwise_op.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -244,7 +244,7 @@ def test_pundeclared_bitwise_op() -> None:
 
 def test_pundeclared_compound_assignment_use() -> None:
     path = os.path.join(
-        TEST_DIR, "chapter_5", "invalid_semantics", "extra_credit", "undeclared_compound_assignment_use.c"
+        TEST_DIR, "chapter_05", "invalid_semantics", "extra_credit", "undeclared_compound_assignment_use.c"
     )
     with open(path, "r") as fh:
         src = fh.read()
@@ -259,7 +259,9 @@ def test_pundeclared_compound_assignment_use() -> None:
 
 
 def test_undeclared_compound_assignment() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_semantics", "extra_credit", "undeclared_compound_assignment.c")
+    path = os.path.join(
+        TEST_DIR, "chapter_05", "invalid_semantics", "extra_credit", "undeclared_compound_assignment.c"
+    )
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -273,7 +275,7 @@ def test_undeclared_compound_assignment() -> None:
 
 
 def test_undeclared_postfix_decr() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_semantics", "extra_credit", "undeclared_postfix_decr.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_semantics", "extra_credit", "undeclared_postfix_decr.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -287,7 +289,7 @@ def test_undeclared_postfix_decr() -> None:
 
 
 def test_undeclared_prefix_incr() -> None:
-    path = os.path.join(TEST_DIR, "chapter_5", "invalid_semantics", "extra_credit", "undeclared_prefix_incr.c")
+    path = os.path.join(TEST_DIR, "chapter_05", "invalid_semantics", "extra_credit", "undeclared_prefix_incr.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -301,7 +303,7 @@ def test_undeclared_prefix_incr() -> None:
 
 
 def test_invalid_var_in_if() -> None:
-    path = os.path.join(TEST_DIR, "chapter_6", "invalid_semantics", "invalid_var_in_if.c")
+    path = os.path.join(TEST_DIR, "chapter_06", "invalid_semantics", "invalid_var_in_if.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -315,7 +317,7 @@ def test_invalid_var_in_if() -> None:
 
 
 def test_ternary_assign() -> None:
-    path = os.path.join(TEST_DIR, "chapter_6", "invalid_semantics", "ternary_assign.c")
+    path = os.path.join(TEST_DIR, "chapter_06", "invalid_semantics", "ternary_assign.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -329,7 +331,7 @@ def test_ternary_assign() -> None:
 
 
 def test_undeclared_var_in_ternary() -> None:
-    path = os.path.join(TEST_DIR, "chapter_6", "invalid_semantics", "undeclared_var_in_ternary.c")
+    path = os.path.join(TEST_DIR, "chapter_06", "invalid_semantics", "undeclared_var_in_ternary.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -343,7 +345,7 @@ def test_undeclared_var_in_ternary() -> None:
 
 
 def test_duplicate_labels() -> None:
-    path = os.path.join(TEST_DIR, "chapter_6", "invalid_semantics", "extra_credit", "duplicate_labels.c")
+    path = os.path.join(TEST_DIR, "chapter_06", "invalid_semantics", "extra_credit", "duplicate_labels.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -357,7 +359,7 @@ def test_duplicate_labels() -> None:
 
 
 def test_goto_missing_label() -> None:
-    path = os.path.join(TEST_DIR, "chapter_6", "invalid_semantics", "extra_credit", "goto_missing_label.c")
+    path = os.path.join(TEST_DIR, "chapter_06", "invalid_semantics", "extra_credit", "goto_missing_label.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -371,7 +373,7 @@ def test_goto_missing_label() -> None:
 
 
 def test_goto_variable() -> None:
-    path = os.path.join(TEST_DIR, "chapter_6", "invalid_semantics", "extra_credit", "goto_variable.c")
+    path = os.path.join(TEST_DIR, "chapter_06", "invalid_semantics", "extra_credit", "goto_variable.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -386,7 +388,7 @@ def test_goto_variable() -> None:
 
 def test_undeclared_var_in_labeled_statement() -> None:
     path = os.path.join(
-        TEST_DIR, "chapter_6", "invalid_semantics", "extra_credit", "undeclared_var_in_labeled_statement.c"
+        TEST_DIR, "chapter_06", "invalid_semantics", "extra_credit", "undeclared_var_in_labeled_statement.c"
     )
     with open(path, "r") as fh:
         src = fh.read()
@@ -401,7 +403,7 @@ def test_undeclared_var_in_labeled_statement() -> None:
 
 
 def test_use_label_as_variable() -> None:
-    path = os.path.join(TEST_DIR, "chapter_6", "invalid_semantics", "extra_credit", "use_label_as_variable.c")
+    path = os.path.join(TEST_DIR, "chapter_06", "invalid_semantics", "extra_credit", "use_label_as_variable.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -415,7 +417,7 @@ def test_use_label_as_variable() -> None:
 
 
 def test_double_define_after_scope() -> None:
-    path = os.path.join(TEST_DIR, "chapter_7", "invalid_semantics", "double_define_after_scope.c")
+    path = os.path.join(TEST_DIR, "chapter_07", "invalid_semantics", "double_define_after_scope.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -429,7 +431,7 @@ def test_double_define_after_scope() -> None:
 
 
 def test_double_define() -> None:
-    path = os.path.join(TEST_DIR, "chapter_7", "invalid_semantics", "double_define.c")
+    path = os.path.join(TEST_DIR, "chapter_07", "invalid_semantics", "double_define.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -443,7 +445,7 @@ def test_double_define() -> None:
 
 
 def test_out_of_scope() -> None:
-    path = os.path.join(TEST_DIR, "chapter_7", "invalid_semantics", "out_of_scope.c")
+    path = os.path.join(TEST_DIR, "chapter_07", "invalid_semantics", "out_of_scope.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -457,7 +459,7 @@ def test_out_of_scope() -> None:
 
 
 def test_use_before_declare() -> None:
-    path = os.path.join(TEST_DIR, "chapter_7", "invalid_semantics", "use_before_declare.c")
+    path = os.path.join(TEST_DIR, "chapter_07", "invalid_semantics", "use_before_declare.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -471,7 +473,7 @@ def test_use_before_declare() -> None:
 
 
 def test_different_labels_same_scope() -> None:
-    path = os.path.join(TEST_DIR, "chapter_7", "invalid_semantics", "extra_credit", "different_labels_same_scope.c")
+    path = os.path.join(TEST_DIR, "chapter_07", "invalid_semantics", "extra_credit", "different_labels_same_scope.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -486,7 +488,7 @@ def test_different_labels_same_scope() -> None:
 
 def test_duplicate_labels_different_scopes() -> None:
     path = os.path.join(
-        TEST_DIR, "chapter_7", "invalid_semantics", "extra_credit", "duplicate_labels_different_scopes.c"
+        TEST_DIR, "chapter_07", "invalid_semantics", "extra_credit", "duplicate_labels_different_scopes.c"
     )
     with open(path, "r") as fh:
         src = fh.read()
@@ -501,7 +503,7 @@ def test_duplicate_labels_different_scopes() -> None:
 
 
 def test_goto_use_before_declare() -> None:
-    path = os.path.join(TEST_DIR, "chapter_7", "invalid_semantics", "extra_credit", "goto_use_before_declare.c")
+    path = os.path.join(TEST_DIR, "chapter_07", "invalid_semantics", "extra_credit", "goto_use_before_declare.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -515,7 +517,7 @@ def test_goto_use_before_declare() -> None:
 
 
 def test_break_not_in_loop() -> None:
-    path = os.path.join(TEST_DIR, "chapter_8", "invalid_semantics", "break_not_in_loop.c")
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "break_not_in_loop.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -529,7 +531,7 @@ def test_break_not_in_loop() -> None:
 
 
 def test_continue_not_in_loop() -> None:
-    path = os.path.join(TEST_DIR, "chapter_8", "invalid_semantics", "continue_not_in_loop.c")
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "continue_not_in_loop.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -539,11 +541,11 @@ def test_continue_not_in_loop() -> None:
         _ = ast.resolve()
         assert False, "didn't fail successfully"
     except ResolverError as e:
-        assert str(e) == "continue statement outside of loop"
+        assert str(e) == "cannot have continue statement outside of a loop"
 
 
 def test_out_of_scope_do_loop() -> None:
-    path = os.path.join(TEST_DIR, "chapter_8", "invalid_semantics", "out_of_scope_do_loop.c")
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "out_of_scope_do_loop.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -557,7 +559,7 @@ def test_out_of_scope_do_loop() -> None:
 
 
 def test_out_of_scope_loop_variable() -> None:
-    path = os.path.join(TEST_DIR, "chapter_8", "invalid_semantics", "out_of_scope_loop_variable.c")
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "out_of_scope_loop_variable.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -570,8 +572,289 @@ def test_out_of_scope_loop_variable() -> None:
         assert str(e) == "undefined variable: i"
 
 
+def test_case_continue() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "case_continue.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "cannot have continue statement outside of a loop"
+
+
+def test_case_outside_switch() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "case_outside_switch.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "cannot have case statement outside of a switch"
+
+
+def test_default_continue() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "default_continue.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "cannot have continue statement outside of a loop"
+
+
+def test_default_outside_switch() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "default_outside_switch.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "cannot have default statement outside of a switch"
+
+
+def test_different_cases_same_scope() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "different_cases_same_scope.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "conflicting local definitions for b"
+
+
+def test_duplicate_case_in_labeled_switch() -> None:
+    path = os.path.join(
+        TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "duplicate_case_in_labeled_switch.c"
+    )
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "duplicate cases in switch: Constant(1)"
+
+
+def test_duplicate_case_in_nested_statement() -> None:
+    path = os.path.join(
+        TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "duplicate_case_in_nested_statement.c"
+    )
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "duplicate cases in switch: Constant(1)"
+
+
+def test_duplicate_case() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "duplicate_case.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "duplicate cases in switch: Constant(5)"
+
+
+def test_duplicate_default_in_nested_statement() -> None:
+    path = os.path.join(
+        TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "duplicate_default_in_nested_statement.c"
+    )
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "duplicate defaults in switch"
+
+
+def test_duplicate_default() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "duplicate_default.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "duplicate defaults in switch"
+
+
+def test_duplicate_label_in_default() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "duplicate_label_in_default.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "label already used: .label.main.label"
+
+
+def test_duplicate_label_in_loop() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "duplicate_label_in_loop.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "label already used: .label.main.lbl"
+
+
+def test_duplicate_variable_in_switch() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "duplicate_variable_in_switch.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "conflicting local definitions for b"
+
+
+def test_labeled_break_outside_loop() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "labeled_break_outside_loop.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "break statement outside of loop"
+
+
+def test_non_constant_case() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "non_constant_case.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except TypeCheckerError as e:
+        assert str(e) == "case values must be constant, got: Variable(.var.a.38)"
+
+def test_switch_continue() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "switch_continue.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "cannot have continue statement outside of a loop"
+
+def test_undeclared_var_switch_expression() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "undeclared_var_switch_expression.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "undefined variable: a"
+
+def test_undeclared_variable_in_case() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "undeclared_variable_in_case.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "undefined variable: b"
+
+def test_undeclared_variable_in_default() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "undeclared_variable_in_default.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "undefined variable: b"
+
+def test_undefined_label_in_case() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "undefined_label_in_case.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "goto undefined label: .label.main.foo"
+
+
 def test_assign_fun_to_variable() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_types", "assign_fun_to_variable.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_types", "assign_fun_to_variable.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -585,7 +868,7 @@ def test_assign_fun_to_variable() -> None:
 
 
 def test_assign_value_to_function() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_types", "assign_value_to_function.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_types", "assign_value_to_function.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -599,7 +882,7 @@ def test_assign_value_to_function() -> None:
 
 
 def test_call_variable_as_function() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_types", "call_variable_as_function.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_types", "call_variable_as_function.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -609,11 +892,11 @@ def test_call_variable_as_function() -> None:
         _ = ast.resolve()
         assert False, "didn't fail successfully"
     except TypeCheckerError as e:
-        assert str(e) == "variable .var.x.26 used as a function name"
+        assert str(e) == "variable .var.x.44 used as a function name"
 
 
 def test_conflicting_function_declarations() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_types", "conflicting_function_declarations.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_types", "conflicting_function_declarations.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -627,7 +910,7 @@ def test_conflicting_function_declarations() -> None:
 
 
 def test_conflicting_local_function_declaration() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_types", "conflicting_local_function_declaration.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_types", "conflicting_local_function_declaration.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -641,7 +924,7 @@ def test_conflicting_local_function_declaration() -> None:
 
 
 def test_divide_by_function() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_types", "divide_by_function.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_types", "divide_by_function.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -655,7 +938,7 @@ def test_divide_by_function() -> None:
 
 
 def test_multiple_function_definitions_2() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_types", "multiple_function_definitions_2.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_types", "multiple_function_definitions_2.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -669,7 +952,7 @@ def test_multiple_function_definitions_2() -> None:
 
 
 def test_multiple_function_definitions() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_types", "multiple_function_definitions.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_types", "multiple_function_definitions.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -683,7 +966,7 @@ def test_multiple_function_definitions() -> None:
 
 
 def test_too_few_args() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_types", "too_few_args.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_types", "too_few_args.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -697,7 +980,7 @@ def test_too_few_args() -> None:
 
 
 def test_too_many_args() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_types", "too_many_args.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_types", "too_many_args.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -711,7 +994,7 @@ def test_too_many_args() -> None:
 
 
 def test_bitwise_op_function() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_types", "extra_credit", "bitwise_op_function.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_types", "extra_credit", "bitwise_op_function.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -725,7 +1008,7 @@ def test_bitwise_op_function() -> None:
 
 
 def test_compound_assign_function_lhs() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_types", "extra_credit", "compound_assign_function_lhs.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_types", "extra_credit", "compound_assign_function_lhs.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -739,7 +1022,7 @@ def test_compound_assign_function_lhs() -> None:
 
 
 def test_compound_assign_function_rhs() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_types", "extra_credit", "compound_assign_function_rhs.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_types", "extra_credit", "compound_assign_function_rhs.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -753,7 +1036,7 @@ def test_compound_assign_function_rhs() -> None:
 
 
 def test_postfix_incr_fun_name() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_types", "extra_credit", "postfix_incr_fun_name.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_types", "extra_credit", "postfix_incr_fun_name.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -767,7 +1050,7 @@ def test_postfix_incr_fun_name() -> None:
 
 
 def test_prefix_decr_fun_name() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_types", "extra_credit", "prefix_decr_fun_name.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_types", "extra_credit", "prefix_decr_fun_name.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -781,20 +1064,21 @@ def test_prefix_decr_fun_name() -> None:
 
 
 def test_switch_on_function() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_types", "extra_credit", "switch_on_function.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_types", "extra_credit", "switch_on_function.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
 
     try:
-        _ = Parser(tokens).parse()
+        _ = ast.resolve()
         assert False, "didn't fail successfully"
-    except NotImplementedError as e:
-        assert str(e) == "no switch yet"
+    except TypeCheckerError as e:
+        assert str(e) == "function name f used as a variable"
 
 
 def test_goto_cross_function() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_labels", "extra_credit", "goto_cross_function.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_labels", "extra_credit", "goto_cross_function.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -808,7 +1092,7 @@ def test_goto_cross_function() -> None:
 
 
 def test_goto_function() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_labels", "extra_credit", "goto_function.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_labels", "extra_credit", "goto_function.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -822,7 +1106,7 @@ def test_goto_function() -> None:
 
 
 def test_assign_to_fun_call() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_declarations", "assign_to_fun_call.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_declarations", "assign_to_fun_call.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -836,7 +1120,7 @@ def test_assign_to_fun_call() -> None:
 
 
 def test_decl_params_with_same_name() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_declarations", "decl_params_with_same_name.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_declarations", "decl_params_with_same_name.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -850,7 +1134,7 @@ def test_decl_params_with_same_name() -> None:
 
 
 def test_nested_function_definition() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_declarations", "nested_function_definition.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_declarations", "nested_function_definition.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -864,7 +1148,7 @@ def test_nested_function_definition() -> None:
 
 
 def test_params_with_same_name() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_declarations", "params_with_same_name.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_declarations", "params_with_same_name.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -878,7 +1162,7 @@ def test_params_with_same_name() -> None:
 
 
 def test_redefine_fun_as_var() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_declarations", "redefine_fun_as_var.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_declarations", "redefine_fun_as_var.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -892,7 +1176,7 @@ def test_redefine_fun_as_var() -> None:
 
 
 def test_redefine_parameter() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_declarations", "redefine_parameter.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_declarations", "redefine_parameter.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -906,7 +1190,7 @@ def test_redefine_parameter() -> None:
 
 
 def test_redefine_var_as_fun() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_declarations", "redefine_var_as_fun.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_declarations", "redefine_var_as_fun.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -920,7 +1204,7 @@ def test_redefine_var_as_fun() -> None:
 
 
 def test_undeclared_fun() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_declarations", "undeclared_fun.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_declarations", "undeclared_fun.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -934,7 +1218,7 @@ def test_undeclared_fun() -> None:
 
 
 def test_wrong_parameter_names() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_declarations", "wrong_parameter_names.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_declarations", "wrong_parameter_names.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -948,7 +1232,7 @@ def test_wrong_parameter_names() -> None:
 
 
 def test_call_label_as_function() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_declarations", "extra_credit", "call_label_as_function.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_declarations", "extra_credit", "call_label_as_function.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -962,7 +1246,9 @@ def test_call_label_as_function() -> None:
 
 
 def test_compound_assign_to_fun_call() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_declarations", "extra_credit", "compound_assign_to_fun_call.c")
+    path = os.path.join(
+        TEST_DIR, "chapter_09", "invalid_declarations", "extra_credit", "compound_assign_to_fun_call.c"
+    )
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -976,7 +1262,7 @@ def test_compound_assign_to_fun_call() -> None:
 
 
 def test_decrement_fun_call() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_declarations", "extra_credit", "decrement_fun_call.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_declarations", "extra_credit", "decrement_fun_call.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -989,7 +1275,7 @@ def test_decrement_fun_call() -> None:
 
 
 def test_increment_fun_call() -> None:
-    path = os.path.join(TEST_DIR, "chapter_9", "invalid_declarations", "extra_credit", "increment_fun_call.c")
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_declarations", "extra_credit", "increment_fun_call.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -1124,7 +1410,7 @@ def test_non_constant_static_local_initializer() -> None:
         _ = ast.resolve()
         assert False, "didn't fail successfully"
     except TypeCheckerError as e:
-        assert str(e) == "non-constant initializer on local static variable .var.b.47"
+        assert str(e) == "non-constant initializer on local static variable .var.b.65"
 
 
 def test_redeclare_file_scope_var_as_fun() -> None:
@@ -1209,18 +1495,20 @@ def test_use_file_scope_variable_as_fun() -> None:
     except TypeCheckerError as e:
         assert str(e) == "variable foo used as a function name"
 
-# def test_static_var_case() -> None:
-#     path = os.path.join(TEST_DIR, "chapter_10", "invalid_types", "extra_credit", "static_var_case.c")
-#     with open(path, "r") as fh:
-#         src = fh.read()
-#     tokens = Lexer(src).lex()
-#     ast = Parser(tokens).parse()
 
-#     try:
-#         _ = ast.resolve()
-#         assert False, "didn't fail successfully"
-#     except TypeCheckerError as e:
-#         assert str(e) == "variable foo used as a function name"
+def test_static_var_case() -> None:
+    path = os.path.join(TEST_DIR, "chapter_10", "invalid_types", "extra_credit", "static_var_case.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except TypeCheckerError as e:
+        assert str(e) == "case values must be constant, got: Variable(.var.i.66)"
+
 
 def test_goto_global_var() -> None:
     path = os.path.join(TEST_DIR, "chapter_10", "invalid_labels", "extra_credit", "goto_global_var.c")
@@ -1248,7 +1536,6 @@ def test_conflicting_local_declarations() -> None:
         assert False, "didn't fail successfully"
     except ResolverError as e:
         assert str(e) == "conflicting local definitions for x"
-
 
 
 def test_extern_follows_local_var() -> None:
@@ -1307,7 +1594,6 @@ def test_out_of_scope_extern_var() -> None:
         assert str(e) == "undefined variable: a"
 
 
-
 def test_redefine_param_as_identifier_with_linkage() -> None:
     path = os.path.join(TEST_DIR, "chapter_10", "invalid_declarations", "redefine_param_as_identifier_with_linkage.c")
     with open(path, "r") as fh:
@@ -1322,7 +1608,6 @@ def test_redefine_param_as_identifier_with_linkage() -> None:
         assert str(e) == "conflicting local definitions for i"
 
 
-
 def test_undeclared_global_variable() -> None:
     path = os.path.join(TEST_DIR, "chapter_10", "invalid_declarations", "undeclared_global_variable.c")
     with open(path, "r") as fh:
@@ -1335,4 +1620,3 @@ def test_undeclared_global_variable() -> None:
         assert False, "didn't fail successfully"
     except ResolverError as e:
         assert str(e) == "undefined variable: x"
-
