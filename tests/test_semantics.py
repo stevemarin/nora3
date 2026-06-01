@@ -558,6 +558,20 @@ def test_out_of_scope_do_loop() -> None:
         assert str(e) == "undefined variable: a"
 
 
+def test_out_of_scope_loop_variable() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "out_of_scope_loop_variable.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "undefined variable: i"
+
+
 def test_case_continue() -> None:
     path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "case_continue.c")
     with open(path, "r") as fh:
@@ -585,6 +599,7 @@ def test_case_outside_switch() -> None:
     except ResolverError as e:
         assert str(e) == "cannot have case statement outside of a switch"
 
+
 def test_default_continue() -> None:
     path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "default_continue.c")
     with open(path, "r") as fh:
@@ -597,6 +612,7 @@ def test_default_continue() -> None:
         assert False, "didn't fail successfully"
     except ResolverError as e:
         assert str(e) == "cannot have continue statement outside of a loop"
+
 
 def test_default_outside_switch() -> None:
     path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "default_outside_switch.c")
@@ -611,6 +627,7 @@ def test_default_outside_switch() -> None:
     except ResolverError as e:
         assert str(e) == "cannot have default statement outside of a switch"
 
+
 def test_different_cases_same_scope() -> None:
     path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "different_cases_same_scope.c")
     with open(path, "r") as fh:
@@ -624,8 +641,11 @@ def test_different_cases_same_scope() -> None:
     except ResolverError as e:
         assert str(e) == "conflicting local definitions for b"
 
+
 def test_duplicate_case_in_labeled_switch() -> None:
-    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "duplicate_case_in_labeled_switch.c")
+    path = os.path.join(
+        TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "duplicate_case_in_labeled_switch.c"
+    )
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -636,9 +656,12 @@ def test_duplicate_case_in_labeled_switch() -> None:
         assert False, "didn't fail successfully"
     except ResolverError as e:
         assert str(e) == "duplicate cases in switch: Constant(1)"
+
 
 def test_duplicate_case_in_nested_statement() -> None:
-    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "duplicate_case_in_nested_statement.c")
+    path = os.path.join(
+        TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "duplicate_case_in_nested_statement.c"
+    )
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -650,8 +673,9 @@ def test_duplicate_case_in_nested_statement() -> None:
     except ResolverError as e:
         assert str(e) == "duplicate cases in switch: Constant(1)"
 
-def test_out_of_scope_loop_variable() -> None:
-    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "out_of_scope_loop_variable.c")
+
+def test_duplicate_case() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "duplicate_case.c")
     with open(path, "r") as fh:
         src = fh.read()
     tokens = Lexer(src).lex()
@@ -661,7 +685,172 @@ def test_out_of_scope_loop_variable() -> None:
         _ = ast.resolve()
         assert False, "didn't fail successfully"
     except ResolverError as e:
-        assert str(e) == "undefined variable: i"
+        assert str(e) == "duplicate cases in switch: Constant(5)"
+
+
+def test_duplicate_default_in_nested_statement() -> None:
+    path = os.path.join(
+        TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "duplicate_default_in_nested_statement.c"
+    )
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "duplicate defaults in switch"
+
+
+def test_duplicate_default() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "duplicate_default.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "duplicate defaults in switch"
+
+
+def test_duplicate_label_in_default() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "duplicate_label_in_default.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "label already used: .label.main.label"
+
+
+def test_duplicate_label_in_loop() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "duplicate_label_in_loop.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "label already used: .label.main.lbl"
+
+
+def test_duplicate_variable_in_switch() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "duplicate_variable_in_switch.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "conflicting local definitions for b"
+
+
+def test_labeled_break_outside_loop() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "labeled_break_outside_loop.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "break statement outside of loop"
+
+
+def test_non_constant_case() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "non_constant_case.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except TypeCheckerError as e:
+        assert str(e) == "case values must be constant, got: Variable(.var.a.38)"
+
+def test_switch_continue() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "switch_continue.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "cannot have continue statement outside of a loop"
+
+def test_undeclared_var_switch_expression() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "undeclared_var_switch_expression.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "undefined variable: a"
+
+def test_undeclared_variable_in_case() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "undeclared_variable_in_case.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "undefined variable: b"
+
+def test_undeclared_variable_in_default() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "undeclared_variable_in_default.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "undefined variable: b"
+
+def test_undefined_label_in_case() -> None:
+    path = os.path.join(TEST_DIR, "chapter_08", "invalid_semantics", "extra_credit", "undefined_label_in_case.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
+
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except ResolverError as e:
+        assert str(e) == "goto undefined label: .label.main.foo"
 
 
 def test_assign_fun_to_variable() -> None:
@@ -692,18 +881,18 @@ def test_assign_value_to_function() -> None:
         assert str(e) == "function name x used as a variable"
 
 
-# def test_call_variable_as_function() -> None:
-#     path = os.path.join(TEST_DIR, "chapter_09", "invalid_types", "call_variable_as_function.c")
-#     with open(path, "r") as fh:
-#         src = fh.read()
-#     tokens = Lexer(src).lex()
-#     ast = Parser(tokens).parse()
+def test_call_variable_as_function() -> None:
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_types", "call_variable_as_function.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
 
-#     try:
-#         _ = ast.resolve()
-#         assert False, "didn't fail successfully"
-#     except TypeCheckerError as e:
-#         assert str(e) == "variable .var.x.27 used as a function name"
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except TypeCheckerError as e:
+        assert str(e) == "variable .var.x.44 used as a function name"
 
 
 def test_conflicting_function_declarations() -> None:
@@ -874,17 +1063,18 @@ def test_prefix_decr_fun_name() -> None:
         assert str(e) == "function name x used as a variable"
 
 
-# def test_switch_on_function() -> None:
-#     path = os.path.join(TEST_DIR, "chapter_09", "invalid_types", "extra_credit", "switch_on_function.c")
-#     with open(path, "r") as fh:
-#         src = fh.read()
-#     tokens = Lexer(src).lex()
+def test_switch_on_function() -> None:
+    path = os.path.join(TEST_DIR, "chapter_09", "invalid_types", "extra_credit", "switch_on_function.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
 
-#     try:
-#         _ = Parser(tokens).parse()
-#         assert False, "didn't fail successfully"
-#     except NotImplementedError as e:
-#         assert str(e) == "no switch yet"
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except TypeCheckerError as e:
+        assert str(e) == "function name f used as a variable"
 
 
 def test_goto_cross_function() -> None:
@@ -1209,18 +1399,18 @@ def test_non_constant_static_initializer() -> None:
         assert str(e) == "non-constant initializer for b: Add(Constant(1) . Variable(a))"
 
 
-# def test_non_constant_static_local_initializer() -> None:
-#     path = os.path.join(TEST_DIR, "chapter_10", "invalid_types", "non_constant_static_local_initializer.c")
-#     with open(path, "r") as fh:
-#         src = fh.read()
-#     tokens = Lexer(src).lex()
-#     ast = Parser(tokens).parse()
+def test_non_constant_static_local_initializer() -> None:
+    path = os.path.join(TEST_DIR, "chapter_10", "invalid_types", "non_constant_static_local_initializer.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
 
-#     try:
-#         _ = ast.resolve()
-#         assert False, "didn't fail successfully"
-#     except TypeCheckerError as e:
-#         assert str(e) == "non-constant initializer on local static variable .var.b.48"
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except TypeCheckerError as e:
+        assert str(e) == "non-constant initializer on local static variable .var.b.65"
 
 
 def test_redeclare_file_scope_var_as_fun() -> None:
@@ -1306,18 +1496,18 @@ def test_use_file_scope_variable_as_fun() -> None:
         assert str(e) == "variable foo used as a function name"
 
 
-# def test_static_var_case() -> None:
-#     path = os.path.join(TEST_DIR, "chapter_10", "invalid_types", "extra_credit", "static_var_case.c")
-#     with open(path, "r") as fh:
-#         src = fh.read()
-#     tokens = Lexer(src).lex()
-#     ast = Parser(tokens).parse()
+def test_static_var_case() -> None:
+    path = os.path.join(TEST_DIR, "chapter_10", "invalid_types", "extra_credit", "static_var_case.c")
+    with open(path, "r") as fh:
+        src = fh.read()
+    tokens = Lexer(src).lex()
+    ast = Parser(tokens).parse()
 
-#     try:
-#         _ = ast.resolve()
-#         assert False, "didn't fail successfully"
-#     except TypeCheckerError as e:
-#         assert str(e) == "variable foo used as a function name"
+    try:
+        _ = ast.resolve()
+        assert False, "didn't fail successfully"
+    except TypeCheckerError as e:
+        assert str(e) == "case values must be constant, got: Variable(.var.i.66)"
 
 
 def test_goto_global_var() -> None:

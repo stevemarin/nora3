@@ -1197,8 +1197,6 @@ class Switch(Stmt):
         self.condition.typecheck(symbol_table, file_scope)
         self.body.typecheck(symbol_table, file_scope)
 
-        # TODO: make sure cases are unique (include 0 or 1 defaults)
-
     def resolve_identifiers(self, identifier_map: dict[str, MapEntry], inside_func: bool) -> "Switch":
         new_identifier_map = self.copy_variable_map(identifier_map)
         condition = self.condition.resolve_identifiers(new_identifier_map, inside_func)
@@ -1264,6 +1262,8 @@ class Case(Stmt):
         """.strip()
 
     def typecheck(self, symbol_table: dict[str, IntType | FuncType], file_scope: bool) -> None:
+        if not isinstance(self.value, Constant):
+            raise TypeCheckerError(f"case values must be constant, got: {self.value}")
         self.value.typecheck(symbol_table, file_scope)
         self.body.typecheck(symbol_table, file_scope)
 
@@ -1319,7 +1319,7 @@ class Default(Stmt):
         if switch_context is None:
             raise ResolverError("cannot have default statement outside of a switch")
         elif (value_str := "__default__") in switch_context:
-            raise ResolverError("duplicate defaults in switch:")
+            raise ResolverError("duplicate defaults in switch")
         else:
             switch_context.add(value_str)
 
